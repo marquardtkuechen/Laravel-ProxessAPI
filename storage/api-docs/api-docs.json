@@ -1,0 +1,503 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Proxess REST API",
+        "description": "Proxess Schnittstelle fuer Marquardt Kuechen",
+        "version": "0.1"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Liefert eine Liste aller Dokumente für angefragte Kommission",
+                "operationId": "getDocumentList",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "kaufvertragNummer",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "000006"
+                    },
+                    {
+                        "name": "kaufvertragNummerPos",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Speichert neue Datei in Dokumentcontainer",
+                "operationId": "saveFile",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "DatabaseName",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "mhs"
+                    },
+                    {
+                        "name": "CommissionNr",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "PosNr",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "ReceiptType",
+                        "in": "query",
+                        "description": "Auftragsart Bsp 34 = KV, 304 = KV-Änderung, 4509 = Bestellung",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "34"
+                    },
+                    {
+                        "name": "User",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Description",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Document",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "binary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Loescht eine Datei/ ein Dokument",
+                "operationId": "DeleteDocument",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "DatabaseName",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "DocumentID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "FileID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Aendert eine Datei in Dokumentcontainer",
+                "operationId": "updateFile",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "DatabaseName",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "CommissionNr",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "PosNr",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "ReceiptType",
+                        "in": "query",
+                        "description": "Kann nur verändert werden wenn das Dokument eine Zwischenablage ist. Auftragsart Bsp 34 = KV, 304 = KV-Änderung, 4509 = Bestellung",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "34"
+                    },
+                    {
+                        "name": "User",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "Description",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "DocumentID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "20834984"
+                    },
+                    {
+                        "name": "FileID",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "20834985"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/get": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Ruft die Dokument Eigenschaften ab",
+                "operationId": "getDocumentFile",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "DatabaseName",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "mhs"
+                    },
+                    {
+                        "name": "DocumentID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "20834984"
+                    },
+                    {
+                        "name": "FileID",
+                        "in": "query",
+                        "description": "",
+                        "example": "20834985"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/databases": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Ruft verfügbare Datenbanken ab",
+                "operationId": "getDatabases",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/download": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Ruft das Dokument zum Download ab",
+                "operationId": "downloadDocumentFile",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "DatabaseName",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "mhs"
+                    },
+                    {
+                        "name": "DocumentID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "20834984"
+                    },
+                    {
+                        "name": "FileID",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "20834985"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/types": {
+            "get": {
+                "tags": [
+                    "Document"
+                ],
+                "summary": "Liefert eine Liste aller Dokument-Typen",
+                "operationId": "getDocumentTypes",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
