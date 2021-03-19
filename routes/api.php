@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProxessController;
+use \App\Http\Controllers\MarquardtMetaApi\ChancenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,9 @@ use \App\Http\Controllers\ProxessController;
 });*/
 
 
+
 //Route::resource( '/', ProxessController::class);
-Route::group(['middleware' => 'msgraph'], function () {
+Route::group(['middleware' => 'msgraph', 'prefix' => 'proxess/v1','name' => 'proxess.'], function () {
     Route::get('/', [ProxessController::class, 'index'])->name('getDocumentList');
     Route::get('/databases', [ProxessController::class, 'databases'])->name('getDatabases');
     Route::get('/get', [ProxessController::class, 'show'])->name('getDocumentFile');
@@ -32,6 +34,11 @@ Route::group(['middleware' => 'msgraph'], function () {
 
     Route::get('/types', [ProxessController::class, 'doctypes'])->name('getDocumentTypes');
     Route::get('/search', [ProxessController::class, 'search'])->name('searchDocuments');
+});
+
+Route::group(['middleware' => 'msgraph', 'prefix' => 'mma/v1','name' => 'mma.'], function () {
+    Route::get('stammdaten/chance/aufmerksamkeit', [ChancenController::class, 'index']);
+
 });
 /*
 Route::get('getDocumentFile',[ProxessController::class,'show'])->name('getDocumentFile');

@@ -1,12 +1,43 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Proxess REST API",
-        "description": "Proxess Schnittstelle fuer Marquardt Kuechen",
+        "title": "MMA REST API",
+        "description": "MarquardtMetaAPI",
         "version": "0.1"
     },
     "paths": {
-        "/": {
+        "/mma/v1/stammdaten/chance/aufmerksamkeit": {
+            "get": {
+                "tags": [
+                    "Canchen"
+                ],
+                "summary": "Ruft die Dokument Eigenschaften ab",
+                "operationId": "getDocumentFile",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/proxess/v1/": {
             "get": {
                 "tags": [
                     "Document"
@@ -313,7 +344,7 @@
                 }
             }
         },
-        "/get": {
+        "/proxess/v1/get": {
             "get": {
                 "tags": [
                     "Document"
@@ -371,7 +402,7 @@
                 }
             }
         },
-        "/databases": {
+        "/proxess/v1/databases": {
             "get": {
                 "tags": [
                     "Document"
@@ -402,7 +433,7 @@
                 }
             }
         },
-        "/download": {
+        "/proxess/v1/download": {
             "get": {
                 "tags": [
                     "Document"
@@ -465,7 +496,7 @@
                 }
             }
         },
-        "/types": {
+        "/proxess/v1/types": {
             "get": {
                 "tags": [
                     "Document"

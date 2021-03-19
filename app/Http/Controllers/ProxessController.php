@@ -16,8 +16,9 @@ use Marquardt\MHS\Doc;
 class ProxessController extends Controller
 {
     /** @OA\Info(
-     *     title="Proxess REST API", version="0.1",
-     *     description="Proxess Schnittstelle fuer Marquardt Kuechen",
+     *     title="MMA REST API",
+     *     version="0.1",
+     *     description="MarquardtMetaAPI",
      *     )
      */
 
@@ -28,7 +29,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/",
+     *  path="/proxess/v1/",
      *  tags={"Document"},
      *  operationId="getDocumentList",
      *  summary="Liefert eine Liste aller Dokumente für angefragte Kommission",
@@ -69,7 +70,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Post(
-     *  path="/",
+     *  path="/proxess/v1/",
      *  tags={"Document"},
      *  operationId="saveFile",
      *  summary="Speichert neue Datei in Dokumentcontainer",
@@ -150,7 +151,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/get",
+     *  path="/proxess/v1/get",
      *  tags={"Document"},
      *  operationId="getDocumentFile",
      *  summary="Ruft die Dokument Eigenschaften ab",
@@ -197,7 +198,7 @@ class ProxessController extends Controller
     }
  /**
      * @OA\Get(
-     *  path="/databases",
+     *  path="/proxess/v1/databases",
      *  tags={"Document"},
      *  operationId="getDatabases",
      *  summary="Ruft verfügbare Datenbanken ab",
@@ -226,7 +227,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/download",
+     *  path="/proxess/v1/download",
      *  tags={"Document"},
      *  operationId="downloadDocumentFile",
      *  summary="Ruft das Dokument zum Download ab",
@@ -276,7 +277,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Patch(
-     *  path="/",
+     *  path="/proxess/v1/",
      *  tags={"Document"},
      *  operationId="updateFile",
      *  summary="Aendert eine Datei in Dokumentcontainer",
@@ -356,7 +357,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Delete (
-     *  path="/",
+     *  path="/proxess/v1/",
      *  tags={"Document"},
      *  operationId="DeleteDocument",
      *  summary="Loescht eine Datei/ ein Dokument",
@@ -406,7 +407,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/types",
+     *  path="/proxess/v1/types",
      *  tags={"Document"},
      *  operationId="getDocumentTypes",
      *  summary="Liefert eine Liste aller Dokument-Typen",

@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\MicrosoftGraphServiceProvider::class,
         App\Providers\ProxessWSServiceProvider::class,
+        App\Providers\EcoroWawiServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Graph' => App\Facades\MicrosoftGraphFacade::class,
         'Proxess' => App\Facades\ProxessWSFacade::class,
+        'EcoroWawi' => App\Facades\EcoroWawiFacade::class,
 
     ],
 
