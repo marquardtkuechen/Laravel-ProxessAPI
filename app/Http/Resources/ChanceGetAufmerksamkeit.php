@@ -15,7 +15,7 @@ class ChanceGetAufmerksamkeit
     public function __construct($jsonObject) {
         $this->status = $jsonObject['status'];
         $this->errorMessage = $jsonObject['errorMessage'];
-        $this->typeName = "Woher??";//$jsonObject->; // Woher??
+        //$this->typeName = "Woher??";//$jsonObject->; // Woher??
         $this->totalNumberOfElements = $jsonObject['totalNumberOfElements'];
         $this->from = $jsonObject['from'];
         $this->to = $jsonObject['to'];
@@ -24,6 +24,8 @@ class ChanceGetAufmerksamkeit
         foreach ($jsonObject['value'] as $key => $valueItem) {
             $chanceGetAufmerksamkeitValue = new ChanceGetAufmerksamkeitValue($valueItem);
             array_push($this->valueList, $chanceGetAufmerksamkeitValue->toArray());
+            /// TODO Soll das so bleiben?
+            $this->typeName = $valueItem['typeName'];
         }
     }
 
@@ -55,7 +57,7 @@ class ChanceGetAufmerksamkeitValue {
     public function __construct($jsonObject) {
         $this->erpFremdKey = $jsonObject['erpFremdKey'];
         $this->sort = $jsonObject['sortierung'];
-        $this->value = "Woher??";//$jsonObject['']; // Woher??
+        $this->value = $jsonObject['chancenAufmerksamkeit'];
     }
     
     public function toArray()

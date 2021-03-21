@@ -23,6 +23,21 @@
                             "type": "string",
                             "format": "password"
                         }
+                    },
+                    {
+                        "name": "erpFremdKeyList[]",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ErpFremdKey1"
+                            ]
+                        }
                     }
                 ],
                 "responses": {
