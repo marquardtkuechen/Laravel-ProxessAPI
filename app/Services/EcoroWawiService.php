@@ -36,6 +36,7 @@ use Marquardt\Proxess\SearchCondition;
 use Marquardt\Proxess\SearchRequest;
 
 use App\Http\Resources\ChanceGetAufmerksamkeit;
+use App\Http\Resources\ChanceGetHerkunft;
 
 class EcoroWawiService
 {
@@ -129,6 +130,84 @@ class EcoroWawiService
 
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
+            return $chanceGetAufmerksamkeit->toArray();
+        }
+       
+    }
+
+    public function chancenGetHerkunft($erpFremdKeyList)
+    {
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+        ];
+
+        if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
+            $filter = ["filter" => ["subfilterList" => [[
+                "fieldName" => "inaktiv", 
+                "referenceValue" => false,
+            ]]]];
+
+            $response = $this->http->post('/wawi/chancenHerkunft/getListByFilter', [
+                'body' => json_encode($filter),
+                'headers' => $headers
+            ]);
+
+            //return json_decode($response->getBody(), true);
+            $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
+            return $chanceGetAufmerksamkeit->toArray();
+        } else {
+            $filter = [ 
+                        "erpFremdKeyList" => $erpFremdKeyList,
+                    ];
+
+            $response = $this->http->post('/wawi/chancenHerkunft/getListByErpFremdKeyList', [
+                'body' => json_encode($filter),
+                'headers' => $headers
+            ]);
+
+            //return json_decode($response->getBody(), true);
+            $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
+            return $chanceGetAufmerksamkeit->toArray();
+        }
+       
+    }
+
+    public function chancenGetKaufabsicht($erpFremdKeyList)
+    {
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+        ];
+
+        if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
+            $filter = ["filter" => ["subfilterList" => [[
+                "fieldName" => "inaktiv", 
+                "referenceValue" => false,
+            ]]]];
+
+            $response = $this->http->post('/wawi/chancenKaufabsicht/getListByFilter', [
+                'body' => json_encode($filter),
+                'headers' => $headers
+            ]);
+
+            //return json_decode($response->getBody(), true);
+            $chanceGetAufmerksamkeit = new ChanceGetKaufabsicht(json_decode($response->getBody(), true));
+            return $chanceGetAufmerksamkeit->toArray();
+        } else {
+            $filter = [ 
+                        "erpFremdKeyList" => $erpFremdKeyList,
+                    ];
+
+            $response = $this->http->post('/wawi/chancenKaufabsicht/getListByErpFremdKeyList', [
+                'body' => json_encode($filter),
+                'headers' => $headers
+            ]);
+
+            //return json_decode($response->getBody(), true);
+            $chanceGetAufmerksamkeit = new ChanceGetKaufabsicht(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         }
        

@@ -37,7 +37,8 @@ Route::group(['middleware' => 'msgraph', 'prefix' => 'proxess/v1','name' => 'pro
 });
 
 Route::group(['middleware' => 'msgraph', 'prefix' => 'mma/v1','name' => 'mma.'], function () {
-    Route::get('stammdaten/chance/aufmerksamkeit', [ChancenController::class, 'index'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/aufmerksamkeit', [ChancenController::class, 'getAufmerksamkeit'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/getHerkunft', [ChancenController::class, 'getHerkunft'])->name('getMMAAufmerksamkeitFormRequest');
 
 });
 /*

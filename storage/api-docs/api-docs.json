@@ -12,7 +12,53 @@
                     "Canchen"
                 ],
                 "summary": "Ruft die Dokument Eigenschaften ab",
-                "operationId": "getDocumentFile",
+                "operationId": "getAufmerksamkeit",
+                "parameters": [
+                    {
+                        "name": "oAuth2accessToken",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "password"
+                        }
+                    },
+                    {
+                        "name": "erpFremdKeyList[]",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ErpFremdKey1"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/mma/v1/stammdaten/chance/getHerkunft": {
+            "get": {
+                "tags": [
+                    "Canchen"
+                ],
+                "summary": "Ruft die Dokument Eigenschaften ab",
+                "operationId": "getHerkunft",
                 "parameters": [
                     {
                         "name": "oAuth2accessToken",
