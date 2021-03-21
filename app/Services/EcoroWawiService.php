@@ -37,6 +37,7 @@ use Marquardt\Proxess\SearchRequest;
 
 use App\Http\Resources\ChanceGetAufmerksamkeit;
 use App\Http\Resources\ChanceGetHerkunft;
+use App\Http\Resources\ChanceGetKaufabsicht;
 
 class EcoroWawiService
 {

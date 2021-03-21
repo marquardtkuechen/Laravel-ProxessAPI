@@ -103,6 +103,48 @@ class ChancenController extends Controller
         return $wawi;
     }
 
+    /**
+     * @OA\Get(
+     *  path="/mma/v1/stammdaten/chance/getKaufabsicht",
+     *  tags={"Canchen"},
+     *  operationId="getKaufabsicht",
+     *  summary="Ruft die Dokument Eigenschaften ab",
+     *
+     *  @OA\Parameter(name="oAuth2accessToken",
+     *    in="query",
+     *    description="",
+     *    required=true,
+     *    @OA\Schema(type="string",format="password")
+     *  ),
+     *  @OA\Parameter(name="erpFremdKeyList[]",
+     *    in="query",
+     *    description="",
+     *    
+     *    @OA\Schema(
+     *         type="array",
+     *         collectionFormat="multi",
+     *         @OA\Items( type="string" ),
+     *         example={"ErpFremdKey1"},
+     *    ), 
+     *  ),
+     *  @OA\Response(response="200",
+     *    description="Validation Response",
+     *      @OA\JsonContent()
+     *  )
+     * )
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getKaufabsicht(getMMAAufmerksamkeitFormRequest $request)
+    {
+        // ECORO_654, ECORO_655
+        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $wawi = EcoroWawi::chancenGetKaufabsicht($erpFremdKeyList);
+        return $wawi;
+    }
+
     public function checkToken()
     {
         $tockenResult = EcoroWawi::checkToken();
