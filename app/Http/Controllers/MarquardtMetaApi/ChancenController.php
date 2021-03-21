@@ -36,7 +36,14 @@ class ChancenController extends Controller
      */
     public function index()
     {
-        $wawi = EcoroWawi::test();
+        //$wawi = EcoroWawi::chanceGetAufmerksamkeit(null);
+        $wawi = EcoroWawi::chanceGetAufmerksamkeit(array('ECORO_643','ECORO_644','ECORO_2837'));
         return $wawi;
+    }
+
+    public function checkToken()
+    {
+        $tockenResult = EcoroWawi::checkToken();
+        return $tockenResult;
     }
 }
