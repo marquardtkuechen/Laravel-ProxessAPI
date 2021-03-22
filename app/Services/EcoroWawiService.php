@@ -186,40 +186,18 @@ class EcoroWawiService
             $chanceGetAufmerksamkeit = new ChanceGetKaufabsicht(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         }
-       
     }
 
     public function chancenGetStatus($erpFremdKeyList)
     {
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
-            'Accept'        => 'application/json',
-            'Content-Type'  => 'application/json',
-        ];
-
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
-            $filter = ["filter" => ["subfilterList" => [[
-                "fieldName" => "inaktiv", 
-                "referenceValue" => false,
-            ]]]];
-
-            $response = $this->http->post('/wawi/chancenStatus/getListByFilter', [
-                'body' => json_encode($filter),
-                'headers' => $headers
-            ]);
+            $response = $this->postJson(env('WAWI_ChancenStatus_GetListByFilter'), json_encode($this->getInactiveFilter()));
 
             //return json_decode($response->getBody(), true);
             $chancenGetStatus = new ChancenGetStatus(json_decode($response->getBody(), true));
             return $chancenGetStatus->toArray();
         } else {
-            $filter = [ 
-                        "erpFremdKeyList" => $erpFremdKeyList,
-                    ];
-
-            $response = $this->http->post('/wawi/chancenStatus/getListByErpFremdKeyList', [
-                'body' => json_encode($filter),
-                'headers' => $headers
-            ]);
+            $response = $this->postJson(env('WAWI_ChancenStatus_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
 
             //return json_decode($response->getBody(), true);
             $chancenGetStatus = new ChancenGetStatus(json_decode($response->getBody(), true));
