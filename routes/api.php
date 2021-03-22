@@ -40,6 +40,8 @@ Route::group(['middleware' => 'msgraph', 'prefix' => 'mma/v1','name' => 'mma.'],
     Route::get('stammdaten/chance/aufmerksamkeit', [ChancenController::class, 'getAufmerksamkeit'])->name('getMMAAufmerksamkeitFormRequest');
     Route::get('stammdaten/chance/getHerkunft', [ChancenController::class, 'getHerkunft'])->name('getMMAAufmerksamkeitFormRequest');
     Route::get('stammdaten/chance/getKaufabsicht', [ChancenController::class, 'getKaufabsicht'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/getStatus', [ChancenController::class, 'getStatus'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/getWahrscheinlichkeit', [ChancenController::class, 'getWahrscheinlichkeit'])->name('getMMAAufmerksamkeitFormRequest');
 
 });
 /*

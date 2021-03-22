@@ -145,6 +145,90 @@ class ChancenController extends Controller
         return $wawi;
     }
 
+    /**
+     * @OA\Get(
+     *  path="/mma/v1/stammdaten/chance/getStatus",
+     *  tags={"Canchen"},
+     *  operationId="getStatus",
+     *  summary="-----IN PROGRESS-------",
+     *
+     *  @OA\Parameter(name="oAuth2accessToken",
+     *    in="query",
+     *    description="",
+     *    required=true,
+     *    @OA\Schema(type="string",format="password")
+     *  ),
+     *  @OA\Parameter(name="erpFremdKeyList[]",
+     *    in="query",
+     *    description="",
+     *    
+     *    @OA\Schema(
+     *         type="array",
+     *         collectionFormat="multi",
+     *         @OA\Items( type="string" ),
+     *         example={"ErpFremdKey1"},
+     *    ), 
+     *  ),
+     *  @OA\Response(response="200",
+     *    description="Validation Response",
+     *      @OA\JsonContent()
+     *  )
+     * )
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getStatus(getMMAAufmerksamkeitFormRequest $request)
+    {
+        // 
+        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $wawi = EcoroWawi::chancenGetStatus($erpFremdKeyList);
+        return $wawi;
+    }
+
+    /**
+     * @OA\Get(
+     *  path="/mma/v1/stammdaten/chance/getWahrscheinlichkeit",
+     *  tags={"Canchen"},
+     *  operationId="getWahrscheinlichkeit",
+     *  summary="-----IN PROGRESS-------",
+     *
+     *  @OA\Parameter(name="oAuth2accessToken",
+     *    in="query",
+     *    description="",
+     *    required=true,
+     *    @OA\Schema(type="string",format="password")
+     *  ),
+     *  @OA\Parameter(name="erpFremdKeyList[]",
+     *    in="query",
+     *    description="",
+     *    
+     *    @OA\Schema(
+     *         type="array",
+     *         collectionFormat="multi",
+     *         @OA\Items( type="string" ),
+     *         example={"ErpFremdKey1"},
+     *    ), 
+     *  ),
+     *  @OA\Response(response="200",
+     *    description="Validation Response",
+     *      @OA\JsonContent()
+     *  )
+     * )
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getWahrscheinlichkeit(getMMAAufmerksamkeitFormRequest $request)
+    {
+        // 
+        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $wawi = EcoroWawi::chancenGetWahrscheinlichkeit($erpFremdKeyList);
+        return $wawi;
+    }
+
     public function checkToken()
     {
         $tockenResult = EcoroWawi::checkToken();
