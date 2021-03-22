@@ -52,19 +52,35 @@ class EcoroWawiService
         $this->http = new Guzzle(['base_uri' => env('WAWI_URL_INTERN')]);
         $this->ecoro = $this->login();
         //$this->ecoro = $this->checkToken();
+        $this->headersJson = [
+            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
+        ];
 
     }
 
-    public function post($path, array $jsonBody)
+    public function getHeadersJson()
     {
-        $headers = [
-            //'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
-            'Accept' => 'application/json',
+        return [
+            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
+            'Accept'        => 'application/json',
+            'Content-Type'  => 'application/json',
         ];
-        $response = $this->http->post($path, [
-            \GuzzleHttp\RequestOptions::JSON => $jsonBody,
+    }
 
-            'headers' => $headers
+    public function getErpFremdKeyListFilter($erpFremdKeyList)
+    {
+        return [ 
+            "erpFremdKeyList" => $erpFremdKeyList,
+        ];
+    }
+
+    public function post($path, $jsonBody)
+    {
+        $response = $this->http->post($path, [
+            'body' => $jsonBody,
+            'headers' => $this->getHeadersJson()
         ]);
         return $response;
     }
@@ -101,34 +117,21 @@ class EcoroWawiService
 
     public function chanceGetAufmerksamkeit($erpFremdKeyList)
     {
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
-            'Accept'        => 'application/json',
-            'Content-Type'  => 'application/json',
-        ];
-
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $filter = ["filter" => ["subfilterList" => [[
                 "fieldName" => "inaktiv", 
                 "referenceValue" => false,
             ]]]];
 
-            $response = $this->http->post('/wawi/chancenAufmerksamkeit/getListByFilter', [
-                'body' => json_encode($filter),
-                'headers' => $headers
-            ]);
+            $response = $this->post(env('WAWI_ChancenAufmerksamkeit_GetListByFilter'), json_encode($filter));
 
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         } else {
-            $filter = [ 
-                        "erpFremdKeyList" => $erpFremdKeyList,
-                    ];
-
-            $response = $this->http->post('/wawi/chancenAufmerksamkeit/getListByErpFremdKeyList', [
-                'body' => json_encode($filter),
-                'headers' => $headers
+            $response = $this->http->post(env('WAWI_ChancenAufmerksamkeit_GetListByErpFremdKeyList'), [
+                'body' => json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)),
+                'headers' => $this->getHeadersJson()
             ]);
 
             //return json_decode($response->getBody(), true);
