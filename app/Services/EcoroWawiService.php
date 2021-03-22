@@ -152,46 +152,23 @@ class EcoroWawiService
             $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         }
-       
     }
 
     public function chancenGetHerkunft($erpFremdKeyList)
     {
-        $headers = [
-            'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
-            'Accept'        => 'application/json',
-            'Content-Type'  => 'application/json',
-        ];
-
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
-            $filter = ["filter" => ["subfilterList" => [[
-                "fieldName" => "inaktiv", 
-                "referenceValue" => false,
-            ]]]];
-
-            $response = $this->http->post('/wawi/chancenHerkunft/getListByFilter', [
-                'body' => json_encode($filter),
-                'headers' => $headers
-            ]);
+            $response = $this->postJson(env('WAWI_ChancenHerkunft_GetListByFilter'), json_encode($this->getInactiveFilter()));
 
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         } else {
-            $filter = [ 
-                        "erpFremdKeyList" => $erpFremdKeyList,
-                    ];
-
-            $response = $this->http->post('/wawi/chancenHerkunft/getListByErpFremdKeyList', [
-                'body' => json_encode($filter),
-                'headers' => $headers
-            ]);
+            $response = $this->postJson(env('WAWI_ChancenHerkunft_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
 
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         }
-       
     }
 
     public function chancenGetKaufabsicht($erpFremdKeyList)
