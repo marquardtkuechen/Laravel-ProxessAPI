@@ -76,10 +76,32 @@ class EcoroWawiService
         ];
     }
 
-    public function post($path, $jsonBody)
+    public function getInactiveFilter()
+    {
+        return ["filter" => ["subfilterList" => [[
+            "fieldName" => "inaktiv", 
+            "referenceValue" => false,
+        ]]]];
+    }
+
+    public function post($path, array $jsonBody)
+    {
+        $headers = [
+            //'Authorization' => 'Bearer ' . $this->ecoro['accessToken'],
+            'Accept' => 'application/json',
+        ];
+        $response = $this->http->post($path, [
+            \GuzzleHttp\RequestOptions::JSON => $jsonBody,
+
+            'headers' => $headers
+        ]);
+        return $response;
+    }
+
+    public function postJson($path, $jsonStringBody)
     {
         $response = $this->http->post($path, [
-            'body' => $jsonBody,
+            'body' => $jsonStringBody,
             'headers' => $this->getHeadersJson()
         ]);
         return $response;
@@ -118,22 +140,14 @@ class EcoroWawiService
     public function chanceGetAufmerksamkeit($erpFremdKeyList)
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
-            $filter = ["filter" => ["subfilterList" => [[
-                "fieldName" => "inaktiv", 
-                "referenceValue" => false,
-            ]]]];
-
-            $response = $this->post(env('WAWI_ChancenAufmerksamkeit_GetListByFilter'), json_encode($filter));
+            $response = $this->postJson(env('WAWI_ChancenAufmerksamkeit_GetListByFilter'), json_encode($this->getInactiveFilter()));
 
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
         } else {
-            $response = $this->http->post(env('WAWI_ChancenAufmerksamkeit_GetListByErpFremdKeyList'), [
-                'body' => json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)),
-                'headers' => $this->getHeadersJson()
-            ]);
-
+            $response = $this->postJson(env('WAWI_ChancenAufmerksamkeit_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
+            
             //return json_decode($response->getBody(), true);
             $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
             return $chanceGetAufmerksamkeit->toArray();
