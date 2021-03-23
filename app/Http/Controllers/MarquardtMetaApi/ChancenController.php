@@ -18,7 +18,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/aufmerksamkeit",
+     *  path="/mma/v1/stammdaten/chance/getAufmerksamkeit",
      *  tags={"Canchen"},
      *  operationId="getAufmerksamkeit",
      *  summary="Ruft die Dokument Eigenschaften ab",
@@ -32,13 +32,13 @@ class ChancenController extends Controller
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
-     *    
+     *
      *    @OA\Schema(
      *         type="array",
      *         collectionFormat="multi",
      *         @OA\Items( type="string" ),
      *         example={"ErpFremdKey1"},
-     *    ), 
+     *    ),
      *  ),
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -77,13 +77,13 @@ class ChancenController extends Controller
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
-     *    
+     *
      *    @OA\Schema(
      *         type="array",
      *         collectionFormat="multi",
      *         @OA\Items( type="string" ),
      *         example={"ErpFremdKey1"},
-     *    ), 
+     *    ),
      *  ),
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -119,13 +119,13 @@ class ChancenController extends Controller
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
-     *    
+     *
      *    @OA\Schema(
      *         type="array",
      *         collectionFormat="multi",
      *         @OA\Items( type="string" ),
      *         example={"ErpFremdKey1"},
-     *    ), 
+     *    ),
      *  ),
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -161,13 +161,13 @@ class ChancenController extends Controller
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
-     *    
+     *
      *    @OA\Schema(
      *         type="array",
      *         collectionFormat="multi",
      *         @OA\Items( type="string" ),
      *         example={"ErpFremdKey1"},
-     *    ), 
+     *    ),
      *  ),
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -181,7 +181,7 @@ class ChancenController extends Controller
      */
     public function getStatus(getMMAAufmerksamkeitFormRequest $request)
     {
-        // 
+        //
         $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
         $wawi = EcoroWawi::chancenGetStatus($erpFremdKeyList);
         return $wawi;
@@ -203,13 +203,13 @@ class ChancenController extends Controller
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
-     *    
+     *
      *    @OA\Schema(
      *         type="array",
      *         collectionFormat="multi",
      *         @OA\Items( type="string" ),
      *         example={"ErpFremdKey1"},
-     *    ), 
+     *    ),
      *  ),
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -223,7 +223,7 @@ class ChancenController extends Controller
      */
     public function getWahrscheinlichkeit(getMMAAufmerksamkeitFormRequest $request)
     {
-        // 
+        //
         $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
         $wawi = EcoroWawi::chancenGetWahrscheinlichkeit($erpFremdKeyList);
         return $wawi;

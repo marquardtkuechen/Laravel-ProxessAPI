@@ -6,7 +6,7 @@
         "version": "0.1"
     },
     "paths": {
-        "/mma/v1/stammdaten/chance/aufmerksamkeit": {
+        "/mma/v1/stammdaten/chance/getAufmerksamkeit": {
             "get": {
                 "tags": [
                     "Canchen"

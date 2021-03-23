@@ -2,17 +2,19 @@
 
 namespace App\Http\Resources;
 
-class ChanceGetHerkunft
+abstract class BaseChanceResource
 {
-    private $status;
-    private $errorMessage;
-    private $typeName;
-    private $totalNumberOfElements;
-    private $from;
-    private $to;
-    private $valueList;
+    protected $status;
+    protected $errorMessage;
+    protected $typeName;
+    protected $totalNumberOfElements;
+    protected $from;
+    protected $to;
+    protected $valueList;
 
-    public function __construct($jsonObject) {
+    public function __construct($jsonObject, $valueClass)
+    {
+        if (!(is_subclass_of($valueClass, BaseChanceValue::class))) return false;
         $this->status = $jsonObject['status'];
         $this->errorMessage = $jsonObject['errorMessage'];
         //$this->typeName = "Woher??";//$jsonObject->; // Woher??
@@ -22,11 +24,13 @@ class ChanceGetHerkunft
         $this->valueList = array();
 
         foreach ($jsonObject['value'] as $key => $valueItem) {
-            $chanceGetAufmerksamkeitValue = new ChanceGetAufmerksamkeitValue($valueItem);
+            $chanceGetAufmerksamkeitValue = new $valueClass($valueItem);
+
             array_push($this->valueList, $chanceGetAufmerksamkeitValue->toArray());
             /// TODO Soll das so bleiben?
             $this->typeName = $valueItem['typeName'];
         }
+
     }
 
     /**
@@ -38,35 +42,37 @@ class ChanceGetHerkunft
     {
         //return get_object_vars($this);
         return [
-            "status" => $this->status,
-            "errorMessage" => $this->errorMessage,
-            "typeName" => $this->typeName,
+            "status"                => $this->status,
+            "errorMessage"          => $this->errorMessage,
+            "typeName"              => $this->typeName,
             "totalNumberOfElements" => $this->totalNumberOfElements,
-            "from" => $this->from,
-            "to" => $this->to,
-            "valueList" => $this->valueList,
+            "from"                  => $this->from,
+            "to"                    => $this->to,
+            "valueList"             => $this->valueList,
         ];
     }
 }
 
-class ChanceGetAufmerksamkeitValue {
-    private $erpFremdKey;
-    private $sort;
-    private $value;
+abstract class BaseChanceValue
+{
+    protected $erpFremdKey;
+    protected $sort;
+    protected $value;
 
-    public function __construct($jsonObject) {
+    public function __construct($jsonObject)
+    {
         $this->erpFremdKey = $jsonObject['erpFremdKey'];
         $this->sort = $jsonObject['sortierung'];
-        $this->value = $jsonObject['chancenHerkunft'];
+        // $this->value = $jsonObject['chancenAufmerksamkeit'];
     }
-    
+
     public function toArray()
     {
         //return get_object_vars($this);
         return [
             "erpFremdKey" => $this->erpFremdKey,
-            "sort" => $this->sort,
-            "value" => $this->value,
+            "sort"        => $this->sort,
+            "value"       => $this->value,
         ];
     }
 }

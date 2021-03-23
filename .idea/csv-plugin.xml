@@ -10,6 +10,27 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/app/Http/Resources/ChanceGetAufmerksamkeit.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/app/Http/Resources/ChanceGetHerkunft.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/app/Services/EcoroWawiService.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/app/Services/ProxessWSService.php">
           <value>
             <Attribute>

@@ -9,6 +9,7 @@ use App\Http\Requests\getDocumentFileRequest;
 use App\Http\Requests\getDocumentListRequest;
 use App\Http\Requests\saveFileRequest;
 use App\Http\Requests\updateFileRequest;
+use App\Http\Resources\ChanceGetAufmerksamkeitValue;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Http\Client\Response;
@@ -35,11 +36,11 @@ use Marquardt\Proxess\ProxessWS;
 use Marquardt\Proxess\SearchCondition;
 use Marquardt\Proxess\SearchRequest;
 
-use App\Http\Resources\ChanceGetAufmerksamkeit;
-use App\Http\Resources\ChanceGetHerkunft;
-use App\Http\Resources\ChanceGetKaufabsicht;
-use App\Http\Resources\ChancenGetStatus;
-use App\Http\Resources\ChancenGetWahrscheinlichkeit;
+use App\Http\Resources\ChanceGetAufmerksamkeitResource;
+use App\Http\Resources\ChanceGetHerkunftResource;
+use App\Http\Resources\ChanceGetKaufabsichtResource;
+use App\Http\Resources\ChancenGetStatusResource;
+use App\Http\Resources\ChancenGetWahrscheinlichkeitResource;
 
 class EcoroWawiService
 {
@@ -71,7 +72,7 @@ class EcoroWawiService
 
     public function getErpFremdKeyListFilter($erpFremdKeyList)
     {
-        return [ 
+        return [
             "erpFremdKeyList" => $erpFremdKeyList,
         ];
     }
@@ -79,7 +80,7 @@ class EcoroWawiService
     public function getInactiveFilter()
     {
         return ["filter" => ["subfilterList" => [[
-            "fieldName" => "inaktiv", 
+            "fieldName"      => "inaktiv",
             "referenceValue" => false,
         ]]]];
     }
@@ -101,7 +102,7 @@ class EcoroWawiService
     public function postJson($path, $jsonStringBody)
     {
         $response = $this->http->post($path, [
-            'body' => $jsonStringBody,
+            'body'    => $jsonStringBody,
             'headers' => $this->getHeadersJson()
         ]);
         return $response;
@@ -130,8 +131,8 @@ class EcoroWawiService
         $response = $this->http->post('/basis/auth/checkToken', [
             'form_params' => [
                 'accessToken' => $this->ecoro['accessToken'],
-            ], 
-            'headers' => $headers
+            ],
+            'headers'     => $headers
         ]);
 
         return json_decode($response->getBody(), true);
@@ -141,66 +142,56 @@ class EcoroWawiService
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $response = $this->postJson(env('WAWI_ChancenAufmerksamkeit_GetListByFilter'), json_encode($this->getInactiveFilter()));
-            $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         } else {
             $response = $this->postJson(env('WAWI_ChancenAufmerksamkeit_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
-            $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeit(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         }
+        $chanceGetAufmerksamkeit = new ChanceGetAufmerksamkeitResource(json_decode($response->getBody(), true));
+        return $chanceGetAufmerksamkeit->toArray();
     }
 
     public function chancenGetHerkunft($erpFremdKeyList)
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $response = $this->postJson(env('WAWI_ChancenHerkunft_GetListByFilter'), json_encode($this->getInactiveFilter()));
-            $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         } else {
             $response = $this->postJson(env('WAWI_ChancenHerkunft_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
-            $chanceGetAufmerksamkeit = new ChanceGetHerkunft(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         }
+        $chanceGetAufmerksamkeit = new ChanceGetHerkunftResource(json_decode($response->getBody(), true));
+        return $chanceGetAufmerksamkeit->toArray();
     }
 
     public function chancenGetKaufabsicht($erpFremdKeyList)
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $response = $this->postJson(env('WAWI_ChancenKaufabsicht_GetListByFilter'), json_encode($this->getInactiveFilter()));
-            $chanceGetAufmerksamkeit = new ChanceGetKaufabsicht(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         } else {
             $response = $this->postJson(env('WAWI_ChancenKaufabsicht_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
-            $chanceGetAufmerksamkeit = new ChanceGetKaufabsicht(json_decode($response->getBody(), true));
-            return $chanceGetAufmerksamkeit->toArray();
         }
+        $chanceGetAufmerksamkeit = new ChanceGetKaufabsichtResource(json_decode($response->getBody(), true));
+        return $chanceGetAufmerksamkeit->toArray();
     }
 
     public function chancenGetStatus($erpFremdKeyList)
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $response = $this->postJson(env('WAWI_ChancenStatus_GetListByFilter'), json_encode($this->getInactiveFilter()));
-            $chancenGetStatus = new ChancenGetStatus(json_decode($response->getBody(), true));
-            return $chancenGetStatus->toArray();
         } else {
             $response = $this->postJson(env('WAWI_ChancenStatus_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
-            $chancenGetStatus = new ChancenGetStatus(json_decode($response->getBody(), true));
-            return $chancenGetStatus->toArray();
         }
+        $chancenGetStatus = new ChancenGetStatusResource(json_decode($response->getBody(), true));
+        return $chancenGetStatus->toArray();
     }
 
     public function chancenGetWahrscheinlichkeit($erpFremdKeyList)
     {
         if ($erpFremdKeyList == null || empty($erpFremdKeyList)) {
             $response = $this->postJson(env('WAWI_ChancenWahrscheinlichkeit_GetListByFilter'), json_encode($this->getInactiveFilter()));
-            $chancenGetWahrscheinlichkeit = new ChancenGetWahrscheinlichkeit(json_decode($response->getBody(), true));
-            return $chancenGetWahrscheinlichkeit->toArray();
         } else {
             $response = $this->postJson(env('WAWI_ChancenWahrscheinlichkeit_GetListByErpFremdKeyList'), json_encode($this->getErpFremdKeyListFilter($erpFremdKeyList)));
-            $chancenGetWahrscheinlichkeit = new ChancenGetWahrscheinlichkeit(json_decode($response->getBody(), true));
-            return $chancenGetWahrscheinlichkeit->toArray();
         }
-       
+        $chancenGetWahrscheinlichkeit = new ChancenGetWahrscheinlichkeitResource(json_decode($response->getBody(), true));
+        return $chancenGetWahrscheinlichkeit->toArray();
+
     }
 
 
