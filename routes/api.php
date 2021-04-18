@@ -36,14 +36,25 @@ Route::group(['middleware' => 'msgraph', 'prefix' => 'proxess/v1','name' => 'pro
     Route::get('/search', [ProxessController::class, 'search'])->name('searchDocuments');
 });
 
-Route::group(['middleware' => 'msgraph', 'prefix' => 'mma/v1','name' => 'mma.'], function () {
-    Route::get('stammdaten/chance/getAufmerksamkeit', [ChancenController::class, 'getAufmerksamkeit'])->name('getMMAAufmerksamkeitFormRequest');
-    Route::get('stammdaten/chance/getHerkunft', [ChancenController::class, 'getHerkunft'])->name('getMMAAufmerksamkeitFormRequest');
-    Route::get('stammdaten/chance/getKaufabsicht', [ChancenController::class, 'getKaufabsicht'])->name('getMMAAufmerksamkeitFormRequest');
-    Route::get('stammdaten/chance/getStatus', [ChancenController::class, 'getStatus'])->name('getMMAAufmerksamkeitFormRequest');
-    Route::get('stammdaten/chance/getWahrscheinlichkeit', [ChancenController::class, 'getWahrscheinlichkeit'])->name('getMMAAufmerksamkeitFormRequest');
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'mma/v1','name' => 'mma.'], function () {
+    Route::get('stammdaten/chance/aufmerksamkeit', [ChancenController::class, 'getAufmerksamkeit'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/herkunft', [ChancenController::class, 'getHerkunft'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/kaufabsicht', [ChancenController::class, 'getKaufabsicht'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/status', [ChancenController::class, 'getStatus'])->name('getMMAAufmerksamkeitFormRequest');
+    Route::get('stammdaten/chance/wahrscheinlichkeit', [ChancenController::class, 'getWahrscheinlichkeit'])->name('getMMAAufmerksamkeitFormRequest');
+
+    Route::group(['prefix' => 'kunden','name' => 'kunden.'], function (){
+        Route::get('/', [\App\Http\Controllers\MarquardtMetaApi\KundenController::class, 'getKunden'])->name('getKunden');
+    });
+
 
 });
+
+Route::get('/clear-cache', function() {
+    // TODO: protect via backend
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+})->name('cache.clear');
 /*
 Route::get('getDocumentFile',[ProxessController::class,'show'])->name('getDocumentFile');
 Route::post('saveFile',[ProxessController::class,'save'])->name('saveFile');

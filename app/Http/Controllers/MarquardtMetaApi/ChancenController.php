@@ -18,17 +18,12 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/getAufmerksamkeit",
-     *  tags={"Canchen"},
+     *  path="/mma/v1/stammdaten/chance/aufmerksamkeit",
+     *  tags={"Chance"},
      *  operationId="getAufmerksamkeit",
-     *  summary="Ruft die Dokument Eigenschaften ab",
+     *  summary="Ruft die Liste möglicher Chancen-Aufmerksamkeiten ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"bearerAuth": {}}},
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
@@ -56,24 +51,19 @@ class ChancenController extends Controller
         //$wawi = EcoroWawi::chanceGetAufmerksamkeit(array('ECORO_643','ECORO_644','ECORO_2837'));
         //dd($request);
         //return ($request->erpFremdKeyList);
-        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $erpFremdKeyList = isset($request->erpFremdKeyList) ? $request->erpFremdKeyList : null;
         $wawi = EcoroWawi::chanceGetAufmerksamkeit($erpFremdKeyList);
         return $wawi;
     }
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/getHerkunft",
-     *  tags={"Canchen"},
+     *  path="/mma/v1/stammdaten/chance/herkunft",
+     *  tags={"Chance"},
      *  operationId="getHerkunft",
-     *  summary="Ruft die Dokument Eigenschaften ab",
+     *  summary="Ruft die Liste möglicher Chancen-Herkunft ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"bearerAuth": {}}},
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
@@ -98,24 +88,19 @@ class ChancenController extends Controller
     public function getHerkunft(getMMAAufmerksamkeitFormRequest $request)
     {
         // ECORO_641, ECORO_642
-        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $erpFremdKeyList = isset($request->erpFremdKeyList) ? $request->erpFremdKeyList : null;
         $wawi = EcoroWawi::chancenGetHerkunft($erpFremdKeyList);
         return $wawi;
     }
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/getKaufabsicht",
-     *  tags={"Canchen"},
+     *  path="/mma/v1/stammdaten/chance/kaufabsicht",
+     *  tags={"Chance"},
      *  operationId="getKaufabsicht",
-     *  summary="Ruft die Dokument Eigenschaften ab",
+     *  summary="Ruft die Liste möglicher Chancen-Kaufabsicht ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"bearerAuth": {}}},
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
@@ -140,24 +125,19 @@ class ChancenController extends Controller
     public function getKaufabsicht(getMMAAufmerksamkeitFormRequest $request)
     {
         // ECORO_654, ECORO_655
-        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $erpFremdKeyList = isset($request->erpFremdKeyList) ? $request->erpFremdKeyList : null;
         $wawi = EcoroWawi::chancenGetKaufabsicht($erpFremdKeyList);
         return $wawi;
     }
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/getStatus",
-     *  tags={"Canchen"},
+     *  path="/mma/v1/stammdaten/chance/status",
+     *  tags={"Chance"},
      *  operationId="getStatus",
-     *  summary="-----IN PROGRESS-------",
+     *  summary="Ruft die Liste möglicher Chancen-Status ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"bearerAuth": {}}},
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
@@ -182,24 +162,19 @@ class ChancenController extends Controller
     public function getStatus(getMMAAufmerksamkeitFormRequest $request)
     {
         //
-        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $erpFremdKeyList = isset($request->erpFremdKeyList) ? $request->erpFremdKeyList : null;
         $wawi = EcoroWawi::chancenGetStatus($erpFremdKeyList);
         return $wawi;
     }
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/getWahrscheinlichkeit",
-     *  tags={"Canchen"},
+     *  path="/mma/v1/stammdaten/chance/wahrscheinlichkeit",
+     *  tags={"Chance"},
      *  operationId="getWahrscheinlichkeit",
-     *  summary="-----IN PROGRESS-------",
+     *  summary="Ruft die Liste möglicher Chancen-Wahrscheinlichkeit ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"bearerAuth": {}}},
      *  @OA\Parameter(name="erpFremdKeyList[]",
      *    in="query",
      *    description="",
@@ -224,7 +199,7 @@ class ChancenController extends Controller
     public function getWahrscheinlichkeit(getMMAAufmerksamkeitFormRequest $request)
     {
         //
-        $erpFremdKeyList = isset($request->erpFremdKeyList)?$request->erpFremdKeyList:null;
+        $erpFremdKeyList = isset($request->erpFremdKeyList) ? $request->erpFremdKeyList : null;
         $wawi = EcoroWawi::chancenGetWahrscheinlichkeit($erpFremdKeyList);
         return $wawi;
     }

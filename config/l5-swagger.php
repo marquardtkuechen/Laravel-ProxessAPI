@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'Proxess REST API',
+                'title' => 'MarquardtMeta REST API',
             ],
 
             'routes' => [

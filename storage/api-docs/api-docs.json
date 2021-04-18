@@ -6,25 +6,15 @@
         "version": "0.1"
     },
     "paths": {
-        "/mma/v1/stammdaten/chance/getAufmerksamkeit": {
+        "/mma/v1/stammdaten/chance/aufmerksamkeit": {
             "get": {
                 "tags": [
-                    "Canchen"
+                    "Chance"
                 ],
-                "summary": "Ruft die Dokument Eigenschaften ab",
+                "summary": "Ruft die Liste möglicher Chancen-Aufmerksamkeiten ab",
                 "operationId": "getAufmerksamkeit",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "erpFremdKeyList[]",
                         "in": "query",
                         "description": "",
@@ -49,28 +39,23 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/mma/v1/stammdaten/chance/getHerkunft": {
+        "/mma/v1/stammdaten/chance/herkunft": {
             "get": {
                 "tags": [
-                    "Canchen"
+                    "Chance"
                 ],
-                "summary": "Ruft die Dokument Eigenschaften ab",
+                "summary": "Ruft die Liste möglicher Chancen-Herkunft ab",
                 "operationId": "getHerkunft",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "erpFremdKeyList[]",
                         "in": "query",
                         "description": "",
@@ -95,28 +80,23 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/mma/v1/stammdaten/chance/getKaufabsicht": {
+        "/mma/v1/stammdaten/chance/kaufabsicht": {
             "get": {
                 "tags": [
-                    "Canchen"
+                    "Chance"
                 ],
-                "summary": "Ruft die Dokument Eigenschaften ab",
+                "summary": "Ruft die Liste möglicher Chancen-Kaufabsicht ab",
                 "operationId": "getKaufabsicht",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "erpFremdKeyList[]",
                         "in": "query",
                         "description": "",
@@ -141,27 +121,63 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/mma/v1/stammdaten/chance/getStatus": {
+        "/mma/v1/stammdaten/chance/status": {
             "get": {
                 "tags": [
-                    "Canchen"
+                    "Chance"
                 ],
-                "summary": "-----IN PROGRESS-------",
+                "summary": "Ruft die Liste möglicher Chancen-Status ab",
                 "operationId": "getStatus",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
+                        "name": "erpFremdKeyList[]",
                         "in": "query",
                         "description": "",
-                        "required": true,
                         "schema": {
-                            "type": "string",
-                            "format": "password"
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ErpFremdKey1"
+                            ]
                         }
-                    },
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/mma/v1/stammdaten/chance/wahrscheinlichkeit": {
+            "get": {
+                "tags": [
+                    "Chance"
+                ],
+                "summary": "Ruft die Liste möglicher Chancen-Wahrscheinlichkeit ab",
+                "operationId": "getWahrscheinlichkeit",
+                "parameters": [
                     {
                         "name": "erpFremdKeyList[]",
                         "in": "query",
@@ -187,16 +203,21 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
-        "/mma/v1/stammdaten/chance/getWahrscheinlichkeit": {
+        "/mma/v1/kunden": {
             "get": {
                 "tags": [
-                    "Canchen"
+                    "Kunden"
                 ],
-                "summary": "-----IN PROGRESS-------",
-                "operationId": "getWahrscheinlichkeit",
+                "summary": "Kundendaten  ermitteln",
+                "operationId": "getKunden",
                 "parameters": [
                     {
                         "name": "oAuth2accessToken",
@@ -206,6 +227,25 @@
                         "schema": {
                             "type": "string",
                             "format": "password"
+                        }
+                    },
+                    {
+                        "name": "kundenNr",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "email"
                         }
                     },
                     {
@@ -245,16 +285,6 @@
                 "operationId": "getDocumentList",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "kaufvertragNummer",
                         "in": "query",
                         "description": "",
@@ -282,7 +312,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -291,16 +326,6 @@
                 "summary": "Speichert neue Datei in Dokumentcontainer",
                 "operationId": "saveFile",
                 "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
                     {
                         "name": "DatabaseName",
                         "in": "query",
@@ -381,7 +406,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -390,16 +420,6 @@
                 "summary": "Loescht eine Datei/ ein Dokument",
                 "operationId": "DeleteDocument",
                 "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
                     {
                         "name": "DatabaseName",
                         "in": "query",
@@ -439,7 +459,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             },
             "patch": {
                 "tags": [
@@ -448,16 +473,6 @@
                 "summary": "Aendert eine Datei in Dokumentcontainer",
                 "operationId": "updateFile",
                 "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
                     {
                         "name": "DatabaseName",
                         "in": "query",
@@ -540,7 +555,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/proxess/v1/get": {
@@ -552,16 +572,6 @@
                 "operationId": "getDocumentFile",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "DatabaseName",
                         "in": "query",
                         "description": "",
@@ -598,7 +608,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/proxess/v1/databases": {
@@ -608,18 +623,6 @@
                 ],
                 "summary": "Ruft verfügbare Datenbanken ab",
                 "operationId": "getDatabases",
-                "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -629,7 +632,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/proxess/v1/download": {
@@ -641,16 +649,6 @@
                 "operationId": "downloadDocumentFile",
                 "parameters": [
                     {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
                         "name": "DatabaseName",
                         "in": "query",
                         "description": "",
@@ -692,7 +690,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
             }
         },
         "/proxess/v1/types": {
@@ -702,18 +705,6 @@
                 ],
                 "summary": "Liefert eine Liste aller Dokument-Typen",
                 "operationId": "getDocumentTypes",
-                "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -723,7 +714,27 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            },
+            "token": {
+                "type": "apiKey",
+                "name": "oAuth2accessToken",
+                "in": "query"
             }
         }
     },

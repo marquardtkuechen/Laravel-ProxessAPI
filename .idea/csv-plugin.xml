@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/app/Http/Middleware/oAuthTokenVerification.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/app/Http/Resources/ChanceGetAufmerksamkeit.php">
           <value>
             <Attribute>
@@ -35,6 +42,13 @@
           <value>
             <Attribute>
               <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/routes/api.php">
+          <value>
+            <Attribute>
+              <option name="separator" value=":" />
             </Attribute>
           </value>
         </entry>

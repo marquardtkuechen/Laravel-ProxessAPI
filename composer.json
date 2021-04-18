@@ -14,8 +14,11 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
+        "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.5",
-        "marquardt/mhs": "master"
+        "marquardt/mhs": "master",
+        "nyholm/psr7": "^1.4",
+        "symfony/psr-http-message-bridge": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.9",

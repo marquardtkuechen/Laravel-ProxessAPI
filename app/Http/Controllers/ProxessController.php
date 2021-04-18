@@ -22,6 +22,23 @@ class ProxessController extends Controller
      *     )
      */
 
+    /**
+     * @OA\SecurityScheme(
+     *      securityScheme="bearerAuth",
+     *      in="header",
+     *      name="Authorization",
+     *      type="http",
+     *      scheme="bearer",
+     *
+     * ),
+     *  * @OA\SecurityScheme(
+     *   securityScheme="token",
+     *   type="apiKey",
+     *   name="oAuth2accessToken",
+     *   in="query"
+     * )
+     */
+
     public function __construct()
     {
 
@@ -34,12 +51,8 @@ class ProxessController extends Controller
      *  operationId="getDocumentList",
      *  summary="Liefert eine Liste aller Dokumente für angefragte Kommission",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
+     *
      *  @OA\Parameter(name="kaufvertragNummer",
      *    in="query",
      *    description="",
@@ -78,12 +91,7 @@ class ProxessController extends Controller
      *           mediaType="multipart/form-data",
      *     ),
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Parameter(name="DatabaseName",
      *    in="query",
      *    description="",
@@ -156,12 +164,7 @@ class ProxessController extends Controller
      *  operationId="getDocumentFile",
      *  summary="Ruft die Dokument Eigenschaften ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Parameter(name="DatabaseName",
      *    in="query",
      *    description="",
@@ -196,19 +199,15 @@ class ProxessController extends Controller
     {
         return Proxess::show($request);
     }
- /**
+
+    /**
      * @OA\Get(
      *  path="/proxess/v1/databases",
      *  tags={"Document"},
      *  operationId="getDatabases",
      *  summary="Ruft verfügbare Datenbanken ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Response(response="200",
      *    description="Validation Response",
      *      @OA\JsonContent()
@@ -232,12 +231,7 @@ class ProxessController extends Controller
      *  operationId="downloadDocumentFile",
      *  summary="Ruft das Dokument zum Download ab",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Parameter(name="DatabaseName",
      *    in="query",
      *    description="",
@@ -282,12 +276,7 @@ class ProxessController extends Controller
      *  operationId="updateFile",
      *  summary="Aendert eine Datei in Dokumentcontainer",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Parameter(name="DatabaseName",
      *    in="query",
      *    description="",
@@ -362,12 +351,7 @@ class ProxessController extends Controller
      *  operationId="DeleteDocument",
      *  summary="Loescht eine Datei/ ein Dokument",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *  @OA\Parameter(name="DatabaseName",
      *    in="query",
      *    description="",
@@ -412,12 +396,7 @@ class ProxessController extends Controller
      *  operationId="getDocumentTypes",
      *  summary="Liefert eine Liste aller Dokument-Typen",
      *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
+     *  security={{"token": {}}},
      *
      *  @OA\Response(response="200",
      *    description="Validation Response",
@@ -433,7 +412,8 @@ class ProxessController extends Controller
         return Proxess::getTypes($request);
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         return Proxess::searchDocuments($request);
     }
 }
