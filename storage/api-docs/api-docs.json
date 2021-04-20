@@ -6,6 +6,70 @@
         "version": "0.1"
     },
     "paths": {
+        "/proxess/v1/email": {
+            "post": {
+                "tags": [
+                    "Email"
+                ],
+                "summary": "",
+                "operationId": "newEmail",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "marquardtAuftragsNummer": {
+                                        "type": "string",
+                                        "example": "000006"
+                                    },
+                                    "posAuftragsNummer": {
+                                        "type": "string",
+                                        "example": "2511"
+                                    },
+                                    "file": {
+                                        "properties": {
+                                            "fileName": {
+                                                "type": "string",
+                                                "example": "name.pdf"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "application/pdf"
+                                            },
+                                            "size": {
+                                                "type": "int",
+                                                "example": "65989"
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": ""
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
         "/mma/v1/stammdaten/chance/aufmerksamkeit": {
             "get": {
                 "tags": [

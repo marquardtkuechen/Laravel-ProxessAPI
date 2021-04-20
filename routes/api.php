@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProxessController;
+use \App\Http\Controllers\EmailController;
 use \App\Http\Controllers\MarquardtMetaApi\ChancenController;
 
 /*
@@ -34,6 +35,10 @@ Route::group(['middleware' => 'msgraph', 'prefix' => 'proxess/v1','name' => 'pro
 
     Route::get('/types', [ProxessController::class, 'doctypes'])->name('getDocumentTypes');
     Route::get('/search', [ProxessController::class, 'search'])->name('searchDocuments');
+
+    Route::group(['prefix' => 'email','name' => 'email.'], function (){
+        Route::post('/', [EmailController::class, 'newMail'])->name('newMail');
+    });
 });
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'mma/v1','name' => 'mma.'], function () {
@@ -46,6 +51,9 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'mma/v1','name' => 'mm
     Route::group(['prefix' => 'kunden','name' => 'kunden.'], function (){
         Route::get('/', [\App\Http\Controllers\MarquardtMetaApi\KundenController::class, 'getKunden'])->name('getKunden');
     });
+
+
+    
 
 
 });

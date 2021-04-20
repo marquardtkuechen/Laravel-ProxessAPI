@@ -28,7 +28,7 @@ class EmailController extends Controller
      *  path="/proxess/v1/email",
      *  tags={"Email"},
      *  operationId="newEmail",
-     *  summary="",
+     *  summary="An endpoint to upload email content with attached file.",
      * 
      *  @OA\RequestBody(@OA\MediaType(
      *        mediaType="application/json",
