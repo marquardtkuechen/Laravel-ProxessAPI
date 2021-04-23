@@ -15,29 +15,7 @@ use Marquardt\MHS\Doc;
 
 class ProxessController extends Controller
 {
-    /** @OA\Info(
-     *     title="MMA REST API",
-     *     version="0.1",
-     *     description="MarquardtMetaAPI",
-     *     )
-     */
 
-    /**
-     * @OA\SecurityScheme(
-     *      securityScheme="bearerAuth",
-     *      in="header",
-     *      name="Authorization",
-     *      type="http",
-     *      scheme="bearer",
-     *
-     * ),
-     *  * @OA\SecurityScheme(
-     *   securityScheme="token",
-     *   type="apiKey",
-     *   name="oAuth2accessToken",
-     *   in="query"
-     * )
-     */
 
     public function __construct()
     {
@@ -46,7 +24,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/proxess/v1/",
+     *  path="/documents/",
      *  tags={"Document"},
      *  operationId="getDocumentList",
      *  summary="Liefert eine Liste aller Dokumente für angefragte Kommission",
@@ -83,7 +61,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Post(
-     *  path="/proxess/v1/",
+     *  path="/documents/",
      *  tags={"Document"},
      *  operationId="saveFile",
      *  summary="Speichert neue Datei in Dokumentcontainer",
@@ -159,7 +137,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/proxess/v1/get",
+     *  path="/documents/get",
      *  tags={"Document"},
      *  operationId="getDocumentFile",
      *  summary="Ruft die Dokument Eigenschaften ab",
@@ -202,7 +180,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/proxess/v1/databases",
+     *  path="/documents/databases",
      *  tags={"Document"},
      *  operationId="getDatabases",
      *  summary="Ruft verfügbare Datenbanken ab",
@@ -226,7 +204,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/proxess/v1/download",
+     *  path="/documents/download",
      *  tags={"Document"},
      *  operationId="downloadDocumentFile",
      *  summary="Ruft das Dokument zum Download ab",
@@ -271,7 +249,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Patch(
-     *  path="/proxess/v1/",
+     *  path="/documents/",
      *  tags={"Document"},
      *  operationId="updateFile",
      *  summary="Aendert eine Datei in Dokumentcontainer",
@@ -346,7 +324,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Delete (
-     *  path="/proxess/v1/",
+     *  path="/documents/",
      *  tags={"Document"},
      *  operationId="DeleteDocument",
      *  summary="Loescht eine Datei/ ein Dokument",
@@ -391,7 +369,7 @@ class ProxessController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/proxess/v1/types",
+     *  path="/documents/types",
      *  tags={"Document"},
      *  operationId="getDocumentTypes",
      *  summary="Liefert eine Liste aller Dokument-Typen",

@@ -18,7 +18,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/aufmerksamkeit",
+     *  path="/stammdaten/chance/aufmerksamkeit",
      *  tags={"Chance"},
      *  operationId="getAufmerksamkeit",
      *  summary="Ruft die Liste möglicher Chancen-Aufmerksamkeiten ab",
@@ -58,7 +58,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/herkunft",
+     *  path="/stammdaten/chance/herkunft",
      *  tags={"Chance"},
      *  operationId="getHerkunft",
      *  summary="Ruft die Liste möglicher Chancen-Herkunft ab",
@@ -95,7 +95,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/kaufabsicht",
+     *  path="/stammdaten/chance/kaufabsicht",
      *  tags={"Chance"},
      *  operationId="getKaufabsicht",
      *  summary="Ruft die Liste möglicher Chancen-Kaufabsicht ab",
@@ -132,7 +132,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/status",
+     *  path="/stammdaten/chance/status",
      *  tags={"Chance"},
      *  operationId="getStatus",
      *  summary="Ruft die Liste möglicher Chancen-Status ab",
@@ -169,7 +169,7 @@ class ChancenController extends Controller
 
     /**
      * @OA\Get(
-     *  path="/mma/v1/stammdaten/chance/wahrscheinlichkeit",
+     *  path="/stammdaten/chance/wahrscheinlichkeit",
      *  tags={"Chance"},
      *  operationId="getWahrscheinlichkeit",
      *  summary="Ruft die Liste möglicher Chancen-Wahrscheinlichkeit ab",

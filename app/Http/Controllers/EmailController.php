@@ -22,25 +22,29 @@ use PDO;
 class EmailController extends Controller
 {
     /**
-     * 
-     * 
+     *
+     *
      * @OA\Post(
-     *  path="/proxess/v1/email",
+     *  path="/documents/email",
      *  tags={"Email"},
      *  operationId="newEmail",
      *  summary="An endpoint to upload email content with attached file.",
-     * 
+     *
      *  @OA\RequestBody(@OA\MediaType(
      *        mediaType="application/json",
      *        @OA\Schema(
      *           type="object",
-     *           @OA\Property(property="marquardtAuftragsNummer", type="string", example="000006"),
-     *           @OA\Property(property="posAuftragsNummer", type="string", example="2511"),
-     *           @OA\Property(property="file", type="object", 
-     *                  @OA\Property(property="fileName", type="string", example="name.pdf"),
-     *                  @OA\Property(property="type", type="string", example="application/pdf"),
+     *           @OA\Property(property="datebaseName", type="string", example="MHS"),
+     *           @OA\Property(property="marquardtOrderNumber", type="string", example="000006"),
+     *           @OA\Property(property="posOrderNumber", type="string", example="2511"),
+     *           @OA\Property(property="file", type="object",
+     *                  @OA\Property(property="id", type="string", example=""),
+     *                  @OA\Property(property="name", type="string", example="name.pdf"),
+     *                  @OA\Property(property="contentType", type="string", example="application/pdf"),
      *                  @OA\Property(property="size", type="int", example="65989"),
-     *                  @OA\Property(property="content", type="string", example=""),
+     *                  @OA\Property(property="contentBytes", type="string", example=""),
+     *                  @OA\Property(property="isInline", type="bool", example=""),
+     *                  @OA\Property(property="lastModifiedDateTime", type="string", example=""),
      *           ),
      *        )
      *     ),
@@ -59,17 +63,21 @@ class EmailController extends Controller
     public function newMail(Request $request){
         $payload = json_decode($request->getContent(), true);
         //dd($payload);
+       // dd("json decode");
         if (is_array($payload)) {
-            $marquardtAuftragsNummer = (isset($payload["marquardtAuftragsNummer"]))?$payload["marquardtAuftragsNummer"]:"";
-            $posAuftragsNummer = (isset($payload["posAuftragsNummer"]))?$payload["posAuftragsNummer"]:"";
+            $datebaseName = (isset($payload["datebaseName"]))?$payload["datebaseName"]:"";
+            $marquardtAuftragsNummer = (isset($payload["marquardtOrderNumber"]))?$payload["marquardtOrderNumber"]:"";
+            $posAuftragsNummer = (isset($payload["posOrderNumber"]))?$payload["posOrderNumber"]:"";
             if (isset($payload["file"]) && is_array($payload["file"])) {
                 $fileName = (isset($payload["file"]["name"]))?$payload["file"]["name"]:"";
-                $fileType = (isset($payload["file"]["type"]))?$payload["file"]["type"]:"";
+                $fileType = (isset($payload["file"]["contentType"]))?$payload["file"]["contentType"]:"";
                 $fileSize = (isset($payload["file"]["size"]))?$payload["file"]["size"]:"";
-                $fileContent = (isset($payload["file"]["content"]))?base64_decode($payload["file"]["content"]):"";
+                $fileContent = (isset($payload["file"]["contentBytes"]))?base64_decode($payload["file"]["contentBytes"]):"";
             } else {
                 return "Error, no file attached!";
             }
+
+            $fileName = preg_replace("/[^a-zA-Z0-9\.]/", "", $fileName);
 
             $mhsContents = $this->selectMandant("mae", $marquardtAuftragsNummer);
             $mhsContent = $mhsContents[0];
@@ -79,7 +87,8 @@ class EmailController extends Controller
 
             $this->uploadFile ($proxessDoc, $fileName, $fileContent);
 
-            return response()->json($proxessDoc);
+            //return response()->json($proxessDoc);
+            return ""; //response()->json("OK");
 
             //return "New: ". $fileName . " - ".$mhsContent["KNAME"];
         } else {
@@ -88,30 +97,6 @@ class EmailController extends Controller
     }
 
     private function uploadFile ($proxessDoc, $fileName, $fileContent) {
-        /*$client = new Guzzle(['base_uri' => 'https://api.marquardt-kuechen.de/proxess/v1']);
-        $res = $client->request('POST', '/?oAuth2accessToken=MasterKeyMarquardt2021!'.
-                                        '&DatabaseName=mhs'.
-                                        '&CommissionNr'.'15'.
-                                        '&PosNr'.$proxessDoc[""].
-                                        ''.
-                                        ''.
-                                        ''.
-                                        ''.
-        , [
-            //'auth'      => [ env('API_USERNAME'), env('API_PASSWORD') ],
-            'multipart' => [
-                [
-                    'name'     => 'FileContents',
-                    'contents' => $fileContent,
-                    'filename' => $fileName
-                ],
-                [
-                    'name'     => 'FileInfo',
-                    'contents' => json_encode($fileinfo)
-                ]
-            ],
-        ]);*/
-
         $customer_path_files = '../upl/';
         $fp = fopen($customer_path_files.$fileName, 'w');
         fwrite($fp, $fileContent);
@@ -119,16 +104,8 @@ class EmailController extends Controller
 
         $path_parts = pathinfo($fileName);
         $extension = strtolower($path_parts['extension']);
-/*
-        $_REQUEST['docTypeId'] = $proxessDoc['documentTypeID'];
-        $_REQUEST['databaseName'] = $proxessDoc['databaseName'];
-        $_REQUEST['mhsAuftrag'] = $proxessDoc["documentFields"]["KDNR"];
-        $_REQUEST['oriFilename'] = $fileName;
-        $_REQUEST['extension'] = 'pdf';
-        $_REQUEST['initials'] = '';
-        */
         $upload = $this->uploadFileToProxess($proxessDoc, $fileName, $fileContent, '', $extension);
-        
+
     }
 
     public static function uploadFileToProxess ($proxessDoc, $fileName, $fileContent, $initials, $extension) {
@@ -312,14 +289,14 @@ class EmailController extends Controller
                 ,COALESCE(a.Name2ZeileLief,a.Name2Zeile)||', '||COALESCE(Name1ZeileLief,Name1Zeile) As KNAME
                 ,COALESCE(a.StrasseLief,a.Strasse) As KSTR
                 ,COALESCE(a.OrtLief,a.Ort) As KORT
-                ,a.KundenkartenNr As Kundenkarte 
-                FROM 
-                MHS.MAUF a INNER JOIN MHS.MTEXT t ON t.Mandant=a.Mandant 
-                AND t.Textschluessel='MIT' 
+                ,a.KundenkartenNr As Kundenkarte
+                FROM
+                MHS.MAUF a INNER JOIN MHS.MTEXT t ON t.Mandant=a.Mandant
+                AND t.Textschluessel='MIT'
                 AND t.Suchbegriff=COALESCE(a.VerkaeuferNr2,a.VerkaeuferNr1)
                 WHERE a.Mandant='0' AND a.AuftragNr='".$marquardtAuftragsNummer."'";
 
-        $mhsCall = $dbMhs->getPDO()->query($query); 
+        $mhsCall = $dbMhs->getPDO()->query($query);
         return ($mhsCall->fetchAll(PDO::FETCH_ASSOC));
     }
 }

@@ -2,37 +2,54 @@
     "openapi": "3.0.0",
     "info": {
         "title": "MMA REST API",
-        "description": "MarquardtMetaAPI",
-        "version": "0.1"
+        "description": "MarquardtMetaAPI<br>API Rate Limits: 60 Requests/Minute<br>Document endpoint requires Office365 authentification<br><br><strong>Caution!</strong> Some endpoints are still under heavy development. They may change format and fields or deliver static test data.",
+        "contact": {
+            "email": "steven.madsen@marquardt-kuechen.de"
+        },
+        "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "https://api.marquardt-kuechen.de/mma/v1/",
+            "description": "MMA - MarquardtMetaAPI Live"
+        }
+    ],
     "paths": {
-        "/proxess/v1/email": {
+        "/documents/email": {
             "post": {
                 "tags": [
                     "Email"
                 ],
-                "summary": "",
+                "summary": "An endpoint to upload email content with attached file.",
                 "operationId": "newEmail",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "marquardtAuftragsNummer": {
+                                    "datebaseName": {
+                                        "type": "string",
+                                        "example": "MHS"
+                                    },
+                                    "marquardtOrderNumber": {
                                         "type": "string",
                                         "example": "000006"
                                     },
-                                    "posAuftragsNummer": {
+                                    "posOrderNumber": {
                                         "type": "string",
                                         "example": "2511"
                                     },
                                     "file": {
                                         "properties": {
-                                            "fileName": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": ""
+                                            },
+                                            "name": {
                                                 "type": "string",
                                                 "example": "name.pdf"
                                             },
-                                            "type": {
+                                            "contentType": {
                                                 "type": "string",
                                                 "example": "application/pdf"
                                             },
@@ -40,7 +57,15 @@
                                                 "type": "int",
                                                 "example": "65989"
                                             },
-                                            "content": {
+                                            "contentBytes": {
+                                                "type": "string",
+                                                "example": ""
+                                            },
+                                            "isInline": {
+                                                "type": "bool",
+                                                "example": ""
+                                            },
+                                            "lastModifiedDateTime": {
                                                 "type": "string",
                                                 "example": ""
                                             }
@@ -70,7 +95,7 @@
                 ]
             }
         },
-        "/mma/v1/stammdaten/chance/aufmerksamkeit": {
+        "/stammdaten/chance/aufmerksamkeit": {
             "get": {
                 "tags": [
                     "Chance"
@@ -111,7 +136,7 @@
                 ]
             }
         },
-        "/mma/v1/stammdaten/chance/herkunft": {
+        "/stammdaten/chance/herkunft": {
             "get": {
                 "tags": [
                     "Chance"
@@ -152,7 +177,7 @@
                 ]
             }
         },
-        "/mma/v1/stammdaten/chance/kaufabsicht": {
+        "/stammdaten/chance/kaufabsicht": {
             "get": {
                 "tags": [
                     "Chance"
@@ -193,7 +218,7 @@
                 ]
             }
         },
-        "/mma/v1/stammdaten/chance/status": {
+        "/stammdaten/chance/status": {
             "get": {
                 "tags": [
                     "Chance"
@@ -234,7 +259,7 @@
                 ]
             }
         },
-        "/mma/v1/stammdaten/chance/wahrscheinlichkeit": {
+        "/stammdaten/chance/wahrscheinlichkeit": {
             "get": {
                 "tags": [
                     "Chance"
@@ -275,7 +300,648 @@
                 ]
             }
         },
-        "/mma/v1/kunden": {
+        "/keys/attention": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Aufmerksamkeits ErpFremdKey und bez. aus",
+                "operationId": "getAttentionKey",
+                "parameters": [
+                    {
+                        "name": "attentionKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_643",
+                                "ECORO_644"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/country": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Laender ErpFremkey und Bez. Aus",
+                "operationId": "getCountryKey",
+                "parameters": [
+                    {
+                        "name": "countryKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "1",
+                                "2",
+                                "147"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/serviceError": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Kundendienst Fehlerschluessel erpFremdKey und bez. aus",
+                "operationId": "getServiceErrorKeys",
+                "parameters": [
+                    {
+                        "name": "serviceErrorTextKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_101",
+                                "MHS_102",
+                                "MHS_106"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/serviceNote": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "lieste alle Textbausteine für Kundendienst Notiz aus, abhängig von Mitarbeiter Gruppe",
+                "operationId": "getServiceNoteKeys",
+                "parameters": [
+                    {
+                        "name": "serviceNoteKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "int"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                1,
+                                2,
+                                3
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/employee": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest einen oder einzelne Mitarbeiter oder Mitarbeiter Gruppe aus",
+                "operationId": "getEmployeeKeys",
+                "parameters": [
+                    {
+                        "name": "employeeKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_XYZ",
+                                "MHS_ABC"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/employeeType": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest aller oder einzelne Mitarbeiter Tätigkeit aus",
+                "operationId": "getEmployeeTypeKeys",
+                "parameters": [
+                    {
+                        "name": "employeeTypeKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_3036",
+                                "ECORO_3037"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/leadOrigin": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Herkunfts leadOriginList und bez. aus",
+                "operationId": "getLeadOriginKeys",
+                "parameters": [
+                    {
+                        "name": "leadOriginKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_2836",
+                                "ECORO_642",
+                                "ECORO_641"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/outlet": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder teile der Filialedaten aus inkl. mitarbeiter",
+                "operationId": "getOutletKeys",
+                "parameters": [
+                    {
+                        "name": "outletKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_05",
+                                "MHS_06"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/paymentTerm": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne zahlungs Bedingung aus",
+                "operationId": "getPaymentTermKey",
+                "parameters": [
+                    {
+                        "name": "paymentTermKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_01",
+                                "MHS_02",
+                                "MHS_20"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/probability": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Wahrscheinlichkeits ErpFremdKey und bez. aus",
+                "operationId": "getProbabilityKeys",
+                "parameters": [
+                    {
+                        "name": "probabilityKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_645",
+                                "ECORO_646",
+                                "ECORO_647"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/salutation": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Anrede salutationList und bez. aus",
+                "operationId": "getSalutationKeys",
+                "parameters": [
+                    {
+                        "name": "salutationKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_01",
+                                "MHS_02",
+                                "MHS_03"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/salutationTitle": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Title ErpFremdKey und bez. aus",
+                "operationId": "getSalutationTitleKeys",
+                "parameters": [
+                    {
+                        "name": "salutationTitleKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "MHS_01",
+                                "MHS_02",
+                                "MHS_81"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/federalState": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Bundesländer aus",
+                "operationId": "getFederalStateKeys",
+                "parameters": [
+                    {
+                        "name": "federalStateKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_1",
+                                "ECORO_16",
+                                "ECORO_13"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/leadStatus": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Chance Status leadStatusList und bez. aus",
+                "operationId": "getLeadStatusKeys",
+                "parameters": [
+                    {
+                        "name": "leadStatusKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_636",
+                                "ECORO_637",
+                                "ECORO_2841"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/keys/intentToPurchase": {
+            "get": {
+                "tags": [
+                    "Keys"
+                ],
+                "summary": "liest alle oder einzelne Kaufabschichts ErpFremdKey und bez. aus",
+                "operationId": "getIntentToPurchaseKeys",
+                "parameters": [
+                    {
+                        "name": "intentToPurchaseKeyList[]",
+                        "in": "query",
+                        "description": "List of keys to search, show all if null",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "collectionFormat": "multi",
+                            "example": [
+                                "ECORO_654",
+                                "ECORO_655",
+                                "ECORO_656"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/kunden": {
             "get": {
                 "tags": [
                     "Kunden"
@@ -340,7 +1006,7 @@
                 }
             }
         },
-        "/proxess/v1/": {
+        "/documents/": {
             "get": {
                 "tags": [
                     "Document"
@@ -627,7 +1293,7 @@
                 ]
             }
         },
-        "/proxess/v1/get": {
+        "/documents/get": {
             "get": {
                 "tags": [
                     "Document"
@@ -680,7 +1346,7 @@
                 ]
             }
         },
-        "/proxess/v1/databases": {
+        "/documents/databases": {
             "get": {
                 "tags": [
                     "Document"
@@ -704,7 +1370,7 @@
                 ]
             }
         },
-        "/proxess/v1/download": {
+        "/documents/download": {
             "get": {
                 "tags": [
                     "Document"
@@ -762,7 +1428,7 @@
                 ]
             }
         },
-        "/proxess/v1/types": {
+        "/documents/types": {
             "get": {
                 "tags": [
                     "Document"
@@ -791,17 +1457,25 @@
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
+                "description": "MMA main authentification",
                 "name": "Authorization",
                 "in": "header",
                 "scheme": "bearer"
             },
             "token": {
                 "type": "apiKey",
+                "description": "Only for document endpoint authentification",
                 "name": "oAuth2accessToken",
                 "in": "query"
             }
         }
     },
+    "tags": [
+        {
+            "name": "Keys",
+            "description": "Find option data for key fields"
+        }
+    ],
     "security": [
         []
     ]

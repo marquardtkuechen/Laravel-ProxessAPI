@@ -11,7 +11,7 @@ class KundenController extends Controller
 {
     /**
      * @OA\Get(
-     *  path="/mma/v1/kunden",
+     *  path="/kunden",
      *  tags={"Kunden"},
      *  operationId="getKunden",
      *  summary="Kundendaten  ermitteln",
