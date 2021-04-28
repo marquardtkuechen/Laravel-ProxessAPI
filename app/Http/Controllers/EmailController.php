@@ -86,8 +86,7 @@ class EmailController extends Controller
 
             $mhsContents = $this->selectMandant("mae", $marquardtAuftragsNummer);
             $mhsContent = $mhsContents[0];
-         
-
+        
             // Extend with request content
             
             if (isset($payload["databaseName"])) {
@@ -111,6 +110,9 @@ class EmailController extends Controller
             if (isset($payload["VBLATT"])) {
                 $mhsContent["VBLATT"] = $payload["VBLATT"];
             } else { return "Error, VBLATT not set!"; }
+            if (isset($payload["documentTypeID"])) {
+                $mhsContent["documentTypeID"] = $payload["documentTypeID"];
+            } else { return "Error, documentTypeID not set!"; }
 
             //dd($this->selectMandant("mae", $marquardtAuftragsNummer));
 
@@ -219,7 +221,7 @@ class EmailController extends Controller
                         'LoginToken' => $oLoginToken,
                         'DatabaseName' => $proxessDoc['databaseName'],
                         'DocumentTypeID' => $proxessDoc['documentTypeID'],
-                        'DocumentDescription' => $proxessDoc["documentFields"]["KDNR"] . $initials ,
+                        'DocumentDescription' => $proxessDoc["documentFields"]["DocDes"] . $initials ,
                         'DocumentFields' => new ArrayOfFieldChange( $paramArrayOfFieldChange ),
                         'DocumentLinks' => null
                     ];
@@ -297,7 +299,7 @@ class EmailController extends Controller
 
         $proxessDocumentInfo["loginToken"] = "";
         $proxessDocumentInfo["databaseName"] = $mhsContent["databaseName"];
-        $proxessDocumentInfo["documentTypeID"] = "191701";
+        $proxessDocumentInfo["documentTypeID"] = $mhsContent["documentTypeID"];
         $proxessDocumentInfo["documentDescription"] = $mhsContent["DocDes"];
         $proxessDocumentInfo["documentFields"] = array();
         $proxessDocumentInfo["documentFields"]["BELNR"] = $posAuftragsNummer;
