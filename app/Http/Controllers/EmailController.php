@@ -86,8 +86,7 @@ class EmailController extends Controller
 
             $mhsContents = $this->selectMandant("mae", $marquardtAuftragsNummer);
             $mhsContent = $mhsContents[0];
-
-            
+         
 
             // Extend with request content
             
