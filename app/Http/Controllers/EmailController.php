@@ -34,9 +34,15 @@ class EmailController extends Controller
      *        mediaType="application/json",
      *        @OA\Schema(
      *           type="object",
-     *           @OA\Property(property="datebaseName", type="string", example="MHS"),
+     *           @OA\Property(property="databaseName", type="string", example="MHS"),
      *           @OA\Property(property="marquardtOrderNumber", type="string", example="000006"),
      *           @OA\Property(property="posOrderNumber", type="string", example="2511"),
+     *           @OA\Property(property="LNAME", type="string", example="POS Homeservice GmbH"),
+     *           @OA\Property(property="LORT", type="string", example="Hausen"),
+     *           @OA\Property(property="KREDNR", type="string", example="801880"),
+     *           @OA\Property(property="BELNR", type="string", example="35410-6641032"),
+     *           @OA\Property(property="DocDes", type="string", example="AUF POS-35410-6641032"),
+     *           @OA\Property(property="VBLATT", type="string", example="MMA"),
      *           @OA\Property(property="file", type="object",
      *                  @OA\Property(property="id", type="string", example=""),
      *                  @OA\Property(property="name", type="string", example="name.pdf"),
@@ -65,7 +71,6 @@ class EmailController extends Controller
         //dd($payload);
        // dd("json decode");
         if (is_array($payload)) {
-            $datebaseName = (isset($payload["datebaseName"]))?$payload["datebaseName"]:"";
             $marquardtAuftragsNummer = (isset($payload["marquardtOrderNumber"]))?$payload["marquardtOrderNumber"]:"";
             $posAuftragsNummer = (isset($payload["posOrderNumber"]))?$payload["posOrderNumber"]:"";
             if (isset($payload["file"]) && is_array($payload["file"])) {
@@ -81,6 +86,33 @@ class EmailController extends Controller
 
             $mhsContents = $this->selectMandant("mae", $marquardtAuftragsNummer);
             $mhsContent = $mhsContents[0];
+
+            
+
+            // Extend with request content
+            
+            if (isset($payload["databaseName"])) {
+                $mhsContent["databaseName"] = $payload["databaseName"];
+            } else {  return "Error, databaseName not set!"; }
+            if (isset($payload["LNAME"])) {
+                $mhsContent["LNAME"] = $payload["LNAME"];
+            } else {  return "Error, LNAME not set!"; }
+            if (isset($payload["LORT"])) {
+                $mhsContent["LORT"] = $payload["LORT"];
+            } else { return "Error, LORT not set!"; }
+            if (isset($payload["KREDNR"])) {
+                $mhsContent["KREDNR"] = $payload["KREDNR"];
+            } else { return "Error, KREDNR not set!"; }
+            if (isset($payload["BELNR"])) {
+                $mhsContent["BELNR"] = $payload["BELNR"];
+            } else { return "Error, BELNR not set!"; }
+            if (isset($payload["DocDes"])) {
+                $mhsContent["DocDes"] = $payload["DocDes"];
+            } else { return "Error, DocDes not set!"; }
+            if (isset($payload["VBLATT"])) {
+                $mhsContent["VBLATT"] = $payload["VBLATT"];
+            } else { return "Error, VBLATT not set!"; }
+
             //dd($this->selectMandant("mae", $marquardtAuftragsNummer));
 
             $proxessDoc = $this->prepareProxessDocument ($mhsContent, $marquardtAuftragsNummer, $posAuftragsNummer);
@@ -173,6 +205,13 @@ class EmailController extends Controller
                             ,'Erfasser' => $initials
                         ,'BELDAT' => date( "d.m.Y H:i:s" )
                         ,'ERFDAT' => date( "d.m.Y H:i:s" )
+                        ,'VBLATT' => $proxessDoc["documentFields"]["VBLATT"]
+                        ,'KREDNR' => $proxessDoc["documentFields"]["KREDNR"]
+                        ,'BELNR' => $proxessDoc["documentFields"]["BELNR"]
+                        ,'DocDes' => $proxessDoc["documentFields"]["DocDes"]
+                        ,'LNAME' => $proxessDoc["documentFields"]["LNAME"]
+                        ,'LORT' => $proxessDoc["documentFields"]["LORT"]
+                        ,'KREDNR' => $proxessDoc["documentFields"]["KREDNR"]
                     ];
 
                     $paramArrayOfFieldChange = array_merge($paramOrder, $paramUserFile);
@@ -181,7 +220,7 @@ class EmailController extends Controller
                         'LoginToken' => $oLoginToken,
                         'DatabaseName' => $proxessDoc['databaseName'],
                         'DocumentTypeID' => $proxessDoc['documentTypeID'],
-                        'DocumentDescription' => $proxessDoc["documentFields"]["KDNR"] . ' # ' . $initials ,
+                        'DocumentDescription' => $proxessDoc["documentFields"]["KDNR"] . $initials ,
                         'DocumentFields' => new ArrayOfFieldChange( $paramArrayOfFieldChange ),
                         'DocumentLinks' => null
                     ];
@@ -258,15 +297,17 @@ class EmailController extends Controller
         $proxessDocumentInfo = array();
 
         $proxessDocumentInfo["loginToken"] = "";
-        $proxessDocumentInfo["databaseName"] = "MHS";
+        $proxessDocumentInfo["databaseName"] = $mhsContent["databaseName"];
         $proxessDocumentInfo["documentTypeID"] = "191701";
-        $proxessDocumentInfo["documentDescription"] = "AUF POS-".$posAuftragsNummer;
+        $proxessDocumentInfo["documentDescription"] = $mhsContent["DocDes"];
         $proxessDocumentInfo["documentFields"] = array();
         $proxessDocumentInfo["documentFields"]["BELNR"] = $posAuftragsNummer;
-        $proxessDocumentInfo["documentFields"]["BELDAT"] = date('d-m-Y h:i:s'); ///TODO
-        $proxessDocumentInfo["documentFields"]["LNAME"] = "POS Homeservice GmbH";
-        $proxessDocumentInfo["documentFields"]["LORT"] = "Hausen";
-        $proxessDocumentInfo["documentFields"]["KREDNR"] = "801880";
+        $proxessDocumentInfo["documentFields"]["BELDAT"] = date('d-m-Y h:i:s');
+        $proxessDocumentInfo["documentFields"]["DocDes"] = $mhsContent["DocDes"];
+        $proxessDocumentInfo["documentFields"]["LNAME"] = $mhsContent["LNAME"];
+        $proxessDocumentInfo["documentFields"]["LORT"] = $mhsContent["LORT"];
+        $proxessDocumentInfo["documentFields"]["KREDNR"] = $mhsContent["KREDNR"];
+        $proxessDocumentInfo["documentFields"]["VBLATT"] = $mhsContent["VBLATT"];
         $proxessDocumentInfo["documentFields"]["KVNR2"] = $marquardtAuftragsNummer;
         $proxessDocumentInfo["documentFields"]["KDNR"] = $marquardtAuftragsNummer;
         $proxessDocumentInfo["documentFields"]["KNAME"] = $mhsContent["KNAME"];
