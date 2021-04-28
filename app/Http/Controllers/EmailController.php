@@ -202,8 +202,8 @@ class EmailController extends Controller
                     /* fields in the DMS DB */
                     $paramUserFile = [
                             //'Creator' => (int)getenv('ekm_default_creater'),
-                        'Bearbeiter' => $initials
-                            ,'Erfasser' => $initials
+                        'Bearbeiter' => $proxessDoc["documentFields"]["Bearbeiter"]
+                        ,'Erfasser' => $proxessDoc["documentFields"]["Bearbeiter"]
                         ,'BELDAT' => date( "d.m.Y H:i:s" )
                         ,'ERFDAT' => date( "d.m.Y H:i:s" )
                         ,'VBLATT' => $proxessDoc["documentFields"]["VBLATT"]
