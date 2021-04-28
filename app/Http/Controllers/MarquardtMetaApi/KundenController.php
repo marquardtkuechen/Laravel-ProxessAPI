@@ -10,47 +10,6 @@ use Illuminate\Http\Request;
 class KundenController extends Controller
 {
     /**
-     * @OA\Get(
-     *  path="/kunden",
-     *  tags={"Kunden"},
-     *  operationId="getKunden",
-     *  summary="Kundendaten  ermitteln",
-     *
-     *  @OA\Parameter(name="oAuth2accessToken",
-     *    in="query",
-     *    description="",
-     *    required=true,
-     *    @OA\Schema(type="string",format="password")
-     *  ),
-     *  @OA\Parameter(name="kundenNr",
-     *    in="query",
-     *    description="",
-     *    required=false,
-     *    @OA\Schema(type="string")
-     *  ),
-     *  @OA\Parameter(name="email",
-     *    in="query",
-     *    description="",
-     *    required=false,
-     *    @OA\Schema(type="string",format="email")
-     *  ),
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
-     * Display the specified resource.
      *
      * @param int $id
      * @return \Illuminate\Http\Response

@@ -27,7 +27,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "datebaseName": {
+                                    "databaseName": {
                                         "type": "string",
                                         "example": "MHS"
                                     },
@@ -38,6 +38,30 @@
                                     "posOrderNumber": {
                                         "type": "string",
                                         "example": "2511"
+                                    },
+                                    "LNAME": {
+                                        "type": "string",
+                                        "example": "POS Homeservice GmbH"
+                                    },
+                                    "LORT": {
+                                        "type": "string",
+                                        "example": "Hausen"
+                                    },
+                                    "KREDNR": {
+                                        "type": "string",
+                                        "example": "801880"
+                                    },
+                                    "BELNR": {
+                                        "type": "string",
+                                        "example": "35410-6641032"
+                                    },
+                                    "DocDes": {
+                                        "type": "string",
+                                        "example": "AUF POS-35410-6641032"
+                                    },
+                                    "VBLATT": {
+                                        "type": "string",
+                                        "example": "MMA"
                                     },
                                     "file": {
                                         "properties": {
@@ -95,30 +119,13 @@
                 ]
             }
         },
-        "/stammdaten/chance/aufmerksamkeit": {
+        "/customerService": {
             "get": {
                 "tags": [
-                    "Chance"
+                    "CustomerService"
                 ],
-                "summary": "Ruft die Liste möglicher Chancen-Aufmerksamkeiten ab",
-                "operationId": "getAufmerksamkeit",
-                "parameters": [
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
+                "summary": "",
+                "operationId": "createCustomerService",
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -134,32 +141,13 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/stammdaten/chance/herkunft": {
-            "get": {
+            },
+            "post": {
                 "tags": [
-                    "Chance"
+                    "CustomerService"
                 ],
-                "summary": "Ruft die Liste möglicher Chancen-Herkunft ab",
-                "operationId": "getHerkunft",
-                "parameters": [
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
+                "summary": "",
+                "operationId": "createCustomerService",
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -175,32 +163,13 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/stammdaten/chance/kaufabsicht": {
-            "get": {
+            },
+            "delete": {
                 "tags": [
-                    "Chance"
+                    "CustomerService"
                 ],
-                "summary": "Ruft die Liste möglicher Chancen-Kaufabsicht ab",
-                "operationId": "getKaufabsicht",
-                "parameters": [
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
+                "summary": "",
+                "operationId": "createCustomerService",
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -216,73 +185,13 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/stammdaten/chance/status": {
-            "get": {
+            },
+            "patch": {
                 "tags": [
-                    "Chance"
+                    "CustomerService"
                 ],
-                "summary": "Ruft die Liste möglicher Chancen-Status ab",
-                "operationId": "getStatus",
-                "parameters": [
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Validation Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/stammdaten/chance/wahrscheinlichkeit": {
-            "get": {
-                "tags": [
-                    "Chance"
-                ],
-                "summary": "Ruft die Liste möglicher Chancen-Wahrscheinlichkeit ab",
-                "operationId": "getWahrscheinlichkeit",
-                "parameters": [
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
+                "summary": "",
+                "operationId": "createCustomerService",
                 "responses": {
                     "200": {
                         "description": "Validation Response",
@@ -941,71 +850,6 @@
                 ]
             }
         },
-        "/kunden": {
-            "get": {
-                "tags": [
-                    "Kunden"
-                ],
-                "summary": "Kundendaten  ermitteln",
-                "operationId": "getKunden",
-                "parameters": [
-                    {
-                        "name": "oAuth2accessToken",
-                        "in": "query",
-                        "description": "",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "format": "password"
-                        }
-                    },
-                    {
-                        "name": "kundenNr",
-                        "in": "query",
-                        "description": "",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "description": "",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "format": "email"
-                        }
-                    },
-                    {
-                        "name": "erpFremdKeyList[]",
-                        "in": "query",
-                        "description": "",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "collectionFormat": "multi",
-                            "example": [
-                                "ErpFremdKey1"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Validation Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/documents/": {
             "get": {
                 "tags": [
@@ -1471,6 +1315,10 @@
         }
     },
     "tags": [
+        {
+            "name": "CustomerService",
+            "description": "CustomerService"
+        },
         {
             "name": "Keys",
             "description": "Find option data for key fields"

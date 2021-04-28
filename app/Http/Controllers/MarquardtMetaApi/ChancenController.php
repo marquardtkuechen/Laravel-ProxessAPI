@@ -17,29 +17,6 @@ class ChancenController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *  path="/stammdaten/chance/aufmerksamkeit",
-     *  tags={"Chance"},
-     *  operationId="getAufmerksamkeit",
-     *  summary="Ruft die Liste möglicher Chancen-Aufmerksamkeiten ab",
-     *
-     *  security={{"bearerAuth": {}}},
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
      * Display the specified resource.
      *
      * @param int $id
@@ -57,30 +34,6 @@ class ChancenController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *  path="/stammdaten/chance/herkunft",
-     *  tags={"Chance"},
-     *  operationId="getHerkunft",
-     *  summary="Ruft die Liste möglicher Chancen-Herkunft ab",
-     *
-     *  security={{"bearerAuth": {}}},
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
-     * Display the specified resource.
      *
      * @param int $id
      * @return \Illuminate\Http\Response
@@ -94,30 +47,6 @@ class ChancenController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *  path="/stammdaten/chance/kaufabsicht",
-     *  tags={"Chance"},
-     *  operationId="getKaufabsicht",
-     *  summary="Ruft die Liste möglicher Chancen-Kaufabsicht ab",
-     *
-     *  security={{"bearerAuth": {}}},
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
-     * Display the specified resource.
      *
      * @param int $id
      * @return \Illuminate\Http\Response
@@ -131,31 +60,6 @@ class ChancenController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *  path="/stammdaten/chance/status",
-     *  tags={"Chance"},
-     *  operationId="getStatus",
-     *  summary="Ruft die Liste möglicher Chancen-Status ab",
-     *
-     *  security={{"bearerAuth": {}}},
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
-     * Display the specified resource.
-     *
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -168,30 +72,6 @@ class ChancenController extends Controller
     }
 
     /**
-     * @OA\Get(
-     *  path="/stammdaten/chance/wahrscheinlichkeit",
-     *  tags={"Chance"},
-     *  operationId="getWahrscheinlichkeit",
-     *  summary="Ruft die Liste möglicher Chancen-Wahrscheinlichkeit ab",
-     *
-     *  security={{"bearerAuth": {}}},
-     *  @OA\Parameter(name="erpFremdKeyList[]",
-     *    in="query",
-     *    description="",
-     *
-     *    @OA\Schema(
-     *         type="array",
-     *         collectionFormat="multi",
-     *         @OA\Items( type="string" ),
-     *         example={"ErpFremdKey1"},
-     *    ),
-     *  ),
-     *  @OA\Response(response="200",
-     *    description="Validation Response",
-     *      @OA\JsonContent()
-     *  )
-     * )
-     * Display the specified resource.
      *
      * @param int $id
      * @return \Illuminate\Http\Response
