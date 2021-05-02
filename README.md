@@ -1,3 +1,19 @@
+
+# Installation
+
+## On debian
+
+```
+sudo apt-get install -y composer php7.4-mysql php7.4-xml php7.4-ldap php7.4-curl
+composer update
+```
+
+### ODBC
+
+https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
+
+# Laravel
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

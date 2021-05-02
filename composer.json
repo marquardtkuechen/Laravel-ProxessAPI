@@ -67,20 +67,20 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "../dev/devSpace1/MarquardtPackageMHS"
+            "type": "vcs",
+            "url": "ssh://git@81.89.98.215:42022/Marquardt/mhs.git"
         },
         {
-            "type": "path",
-            "url": "../dev/devSpace1/MarquardtPackageFileUpload"
+            "type": "vcs",
+            "url": "ssh://git@81.89.98.215:42022/Marquardt/fileupload.git"
         },
         {
-            "type": "path",
-            "url": "../dev/devSpace1/MarquardtPackageLdap"
+            "type": "vcs",
+            "url": "ssh://git@81.89.98.215:42022/Marquardt/ldap.git"
         },
         {
-            "type": "path",
-            "url": "../dev/devSpace1/MarquardtPackageProxess"
+            "type": "vcs",
+            "url": "ssh://git@81.89.98.215:42022/Marquardt/proxess.git"
         }
     ]
 }
