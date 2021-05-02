@@ -39,6 +39,10 @@
                                         "type": "string",
                                         "example": "2511"
                                     },
+                                    "documentTypeID": {
+                                        "type": "string",
+                                        "example": "AUF 1234"
+                                    },
                                     "LNAME": {
                                         "type": "string",
                                         "example": "POS Homeservice GmbH"

@@ -37,6 +37,7 @@ class EmailController extends Controller
      *           @OA\Property(property="databaseName", type="string", example="MHS"),
      *           @OA\Property(property="marquardtOrderNumber", type="string", example="000006"),
      *           @OA\Property(property="posOrderNumber", type="string", example="2511"),
+     *           @OA\Property(property="documentTypeID", type="string", example="AUF 1234"),
      *           @OA\Property(property="LNAME", type="string", example="POS Homeservice GmbH"),
      *           @OA\Property(property="LORT", type="string", example="Hausen"),
      *           @OA\Property(property="KREDNR", type="string", example="801880"),
