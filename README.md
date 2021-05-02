@@ -12,6 +12,29 @@ composer update
 
 https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
 
+# Docker
+
+## Create docker image
+
+```
+cd docker
+docker build -t php74mssql .
+```
+
+## Create dokcer container
+
+```
+docker run -itd --name marquardtDevMMA3 --interactive --tty --volume $PWD/..:/app php74mssql:latest /bin/bash
+```
+
+## Run container in dev mode
+
+```
+
+docker exec -it marquardtDevMMA3 cd /app; php /composer.phar install; php artisan serve
+docker exec -it marquardtDevMMA3 /bin/bash
+```
+
 # Laravel
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
