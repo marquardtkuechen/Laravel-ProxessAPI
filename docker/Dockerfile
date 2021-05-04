@@ -13,7 +13,7 @@ RUN apt-get update \
  && apt-get -y --no-install-recommends install apt-utils libxml2-dev gnupg apt-transport-https \
  && apt-get -y install php7.4 php7.4-dev php-pear -y --allow-unauthenticated \
  && apt-get -y install php7.4-mysql php7.4-xml php7.4-ldap php7.4-curl php7.4-mbstring \
- && apt-get -y install php7.4-odbc php7.4-sybase php7.4-interbase php7.4-common mssql-tools libopendbx1-mssql \
+ && apt-get -y install php7.4-odbc php7.4-sybase php7.4-interbase php7.4-common libopendbx1-mssql \
  && apt-get -y install git unzip screen vim
 
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
