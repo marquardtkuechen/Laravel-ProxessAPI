@@ -38,6 +38,9 @@ return [
                 ],
 
             ],
+            'constants' => [
+                'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'https://api.marquardt-kuechen.de'),
+            ],
         ],
     ],
     'defaults' => [
