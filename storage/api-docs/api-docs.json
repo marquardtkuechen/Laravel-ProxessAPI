@@ -8,12 +8,6 @@
         },
         "version": "1.0.0"
     },
-    "servers": [
-        {
-            "url": "https://api.marquardt-kuechen.de/mma/v1/",
-            "description": "MMA - MarquardtMetaAPI Live"
-        }
-    ],
     "paths": {
         "/documents/email": {
             "post": {
@@ -119,6 +113,30 @@
                 "security": [
                     {
                         "token": []
+                    }
+                ]
+            }
+        },
+        "/customer": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "",
+                "operationId": "createCustomer",
+                "responses": {
+                    "200": {
+                        "description": "Validation Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -1319,6 +1337,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Customer",
+            "description": "Customer"
+        },
         {
             "name": "CustomerService",
             "description": "CustomerService"

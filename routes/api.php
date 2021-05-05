@@ -55,6 +55,10 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'mma/v1', 'name' => 'm
         Route::get('/', [\App\Http\Controllers\MarquardtMetaApi\KundenController::class, 'getKunden'])->name('getKunden');
     });
 
+    Route::group(['prefix' => 'customer', 'name' => 'customer.'], function () {
+        Route::post('/', [\App\Http\Controllers\MarquardtMetaApi\CustomerController::class, 'createCustomer'])->name('createCustomer');
+    });
+
     Route::group(['prefix' => 'keys', 'name' => 'key.'], function () {
         Route::get('attention', [\App\Http\Controllers\MarquardtMetaApi\KeyController::class, 'getAttentionKeys'])->name('getAttentionKeys');
         Route::get('country', [\App\Http\Controllers\MarquardtMetaApi\KeyController::class, 'getCountryKeys'])->name('getCountryKeys');
