@@ -8,6 +8,12 @@
         },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "https://api.marquardt-kuechen.de/mma/v1/",
+            "description": "MMA - MarquardtMetaAPI Live"
+        }
+    ],
     "paths": {
         "/documents/email": {
             "post": {
@@ -124,6 +130,73 @@
                 ],
                 "summary": "",
                 "operationId": "createCustomer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "salutationKey": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "iso2A": {
+                                        "type": "string",
+                                        "example": "DE"
+                                    },
+                                    "federalStateKey": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "name2": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "name1": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "strasse": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "plz": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "ort": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "contractList": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "collectionFormat": "multi",
+                                        "example": [
+                                            "1",
+                                            "2",
+                                            "147"
+                                        ]
+                                    },
+                                    "attentionList": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "collectionFormat": "multi",
+                                        "example": [
+                                            "1",
+                                            "2",
+                                            "147"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Validation Response",
