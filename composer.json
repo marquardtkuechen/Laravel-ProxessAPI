@@ -68,19 +68,19 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "ssh://git@81.89.98.215:42022/Marquardt/mhs.git"
+            "url": "git@gitlab.com:marquardtkuechen/mhs.git"
         },
         {
             "type": "vcs",
-            "url": "ssh://git@81.89.98.215:42022/Marquardt/fileupload.git"
+            "url": "git@gitlab.com:marquardtkuechen/fileupload.git"
         },
         {
             "type": "vcs",
-            "url": "ssh://git@81.89.98.215:42022/Marquardt/ldap.git"
+            "url": "git@gitlab.com:marquardtkuechen/ldap.git"
         },
         {
             "type": "vcs",
-            "url": "ssh://git@81.89.98.215:42022/Marquardt/proxess.git"
+            "url": "git@gitlab.com:marquardtkuechen/proxess.git"
         }
     ]
 }
